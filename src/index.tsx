@@ -42,13 +42,13 @@ export default class RSA {
   static hash(
     message: string,
     name: RSAHash
-  ): Promise<boolean> {
+  ): Promise<string> {
     return RNFastRsa.hash(message, name);
   }
 
   static base64(
     message: string
-  ): Promise<boolean> {
+  ): Promise<string> {
     return RNFastRsa.base64(message);
   }
 
