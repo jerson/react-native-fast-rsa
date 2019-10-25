@@ -1,0 +1,10 @@
+android/build/
+android/.gradle
+.project
+.settings
+ios/native/Rsa.framework
+!ios/native/Rsa.framework.zip
+docs/
+src/
+!android/src
+*.iml

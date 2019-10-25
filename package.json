@@ -1,0 +1,33 @@
+{
+  "name": "react-native-fast-rsa",
+  "version": "0.1.0",
+  "description": "library for use RSA",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "homepage": "https://github.com/jerson/react-native-fast-rsa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jerson/react-native-fast-rsa"
+  },
+  "keywords": [
+    "react-native",
+    "rsa",
+    "fast"
+  ],
+  "author": "Gerson Alexander Pardo Gamez  <jeral17@gmail.com>",
+  "scripts": {
+    "postinstall": "cd ios/native && unzip -o Rsa.framework.zip",
+    "prepare": "npm run build",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": ">=0.46"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}
