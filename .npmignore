@@ -4,6 +4,7 @@ android/.gradle
 .settings
 ios/native/Rsa.framework
 !ios/native/Rsa.framework.zip
+xcuserdata
 docs/
 src/
 !android/src
