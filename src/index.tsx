@@ -14,7 +14,7 @@ export default class RSA {
   static decryptOAEP(
     message: string,
     label: string,
-    hashName: string,
+    hashName: RSAHash,
     pkcs12: string,
     passphrase: string
   ): Promise<string> {
@@ -27,7 +27,7 @@ export default class RSA {
   ): Promise<string> {
     return RNFastRsa.decryptPKCS1v15(message, pkcs12, passphrase);
   }
-  static encryptOAEP(message: string,label: string,hashName: string, pkcs12: string, passphrase: string): Promise<string> {
+  static encryptOAEP(message: string,label: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string> {
     return RNFastRsa.encryptOAEP(message,label,hashName, pkcs12, passphrase);
   }
   static encryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string> {

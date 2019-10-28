@@ -60,9 +60,9 @@ interface KeyPair {
 type RSAHash = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
 type RSABits = 512 | 1024 | 2048 | 4096;
 class RSA {
-    static decryptOAEP(message: string, label: string, hashName: string, pkcs12: string, passphrase: string): Promise<string>;
+    static decryptOAEP(message: string, label: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
     static decryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string>;
-    static encryptOAEP(message: string, label: string, hashName: string, pkcs12: string, passphrase: string): Promise<string>;
+    static encryptOAEP(message: string, label: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
     static encryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string>;
     static signPSS(message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
     static signPKCS1v15(message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
