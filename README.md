@@ -52,34 +52,27 @@ pod 'FastRsa', :path => '../node_modules/react-native-fast-rsa/ios/native'
 ## Usage
 
 ```javascript
-import RSA from "react-native-fast-rsa";
-
-type RSAHash  = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
-type RSABits  = 512 | 1024 | 2048 | 4096;
-
 interface KeyPair {
   publicKey: string;
   privateKey: string;
 }
 
-const decrypted = await RSA.decrypt(message: string, pkcs12: string, passphrase: string): Promise<string>;
-const encrypted = await RSA.encrypt(message: string, pkcs12: string, passphrase: string): Promise<string>;
-const signed = await RSA.sign(
-    hash: string,
-    hashName: RSAHash,
-    pkcs12: string,
-    passphrase: string
-): Promise<string>;
-const verified = await RSA.verify(
-    signature: string,
-    hash: string,
-    hashName: RSAHash,
-    pkcs12: string,
-    passphrase: string
-): Promise<boolean>;
-const hash = await RSA.hash(message: string, name: RSAHash): Promise<string>;
-const base64 = await RSA.base64(message: string): Promise<string>;
-const generated = await RSA.generate(bits: RSABits): Promise<KeyPair>;
+type RSAHash = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
+type RSABits = 512 | 1024 | 2048 | 4096;
+class RSA {
+    static decryptOAEP(message: string, label: string, hashName: string, pkcs12: string, passphrase: string): Promise<string>;
+    static decryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string>;
+    static encryptOAEP(message: string, label: string, hashName: string, pkcs12: string, passphrase: string): Promise<string>;
+    static encryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string>;
+    static signPSS(message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
+    static signPKCS1v15(message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
+    static verifyPSS(signature: string, message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<boolean>;
+    static verifyPKCS1v15(signature: string, message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<boolean>;
+    static hash(message: string, name: RSAHash): Promise<string>;
+    static base64(message: string): Promise<string>;
+    static generate(bits: RSABits): Promise<KeyPair>;
+}
+
 ```
 ## ProGuard
 

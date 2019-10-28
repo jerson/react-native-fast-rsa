@@ -29,9 +29,9 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void decrypt(String message, String pkcs12, String passphrase, Promise promise) {
+    public void decryptOAEP(String message, String label, String hashName, String pkcs12, String passphrase, Promise promise) {
         try {
-            String result = instance.decrypt(message, pkcs12, passphrase);
+            String result = instance.decryptOAEP(message, label, hashName, pkcs12, passphrase);
             promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
@@ -39,9 +39,9 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void encrypt(String message, String pkcs12, String passphrase, Promise promise) {
+    public void decryptPKCS1v15(String message, String pkcs12, String passphrase, Promise promise) {
         try {
-            String result = instance.encrypt(message, pkcs12, passphrase);
+            String result = instance.decryptPKCS1v15(message, pkcs12, passphrase);
             promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
@@ -49,9 +49,9 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void sign(String hash, String hashName, String pkcs12, String passphrase, Promise promise) {
+    public void encryptOAEP(String message, String label, String hashName, String pkcs12, String passphrase, Promise promise) {
         try {
-            String result = instance.sign(hash, hashName, pkcs12, passphrase);
+            String result = instance.encryptOAEP(message, label, hashName, pkcs12, passphrase);
             promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
@@ -59,9 +59,49 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void verify(String signature, String hash, String hashName, String pkcs12, String passphrase, Promise promise) {
+    public void encryptPKCS1v15(String message, String pkcs12, String passphrase, Promise promise) {
         try {
-            Boolean result = instance.verify(signature, hash, hashName, pkcs12, passphrase);
+            String result = instance.encryptPKCS1v15(message, pkcs12, passphrase);
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void signPSS(String message, String hashName, String pkcs12, String passphrase, Promise promise) {
+        try {
+            String result = instance.signPSS(message, hashName, pkcs12, passphrase);
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void signPKCS1v15(String message, String hashName, String pkcs12, String passphrase, Promise promise) {
+        try {
+            String result = instance.signPKCS1v15(message, hashName, pkcs12, passphrase);
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void verifyPSS(String signature, String message, String hashName, String pkcs12, String passphrase, Promise promise) {
+        try {
+            Boolean result = instance.verifyPSS(signature, message, hashName, pkcs12, passphrase);
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject(e);
+        }
+    }
+
+    @ReactMethod
+    public void verifyPKCS1v15(String signature, String message, String hashName, String pkcs12, String passphrase, Promise promise) {
+        try {
+            Boolean result = instance.verifyPKCS1v15(signature, message, hashName, pkcs12, passphrase);
             promise.resolve(result);
         } catch (Exception e) {
             promise.reject(e);
