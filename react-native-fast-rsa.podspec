@@ -18,7 +18,6 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   s.dependency "FastRsa"
-  s.pod_target_xcconfig = { 'ENABLE_BITCODE' => 'NO' }
 
   #s.subspec "FastRsa" do |o|
   #o.name              = 'FastRsa'

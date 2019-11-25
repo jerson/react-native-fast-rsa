@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|  
     s.name              = 'FastRsa'
-    s.version           = '0.2.0'
+    s.version           = '0.3.0'
     s.summary           = 'Rsa native'
     s.homepage          = 'https://github.com/jerson/rsa-mobile'
 
