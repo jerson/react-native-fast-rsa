@@ -1,4 +1,6 @@
 # react-native-fast-rsa
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjerson%2Freact-native-fast-rsa.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjerson%2Freact-native-fast-rsa?ref=badge_shield)
+
 
 ## Getting started
 
@@ -89,3 +91,7 @@ Add this lines to `proguard-rules.pro` for proguard support
 the native library is made in Golang and build with gomobile for faster performance
 
 https://github.com/jerson/rsa-mobile
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjerson%2Freact-native-fast-rsa.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjerson%2Freact-native-fast-rsa?ref=badge_large)
