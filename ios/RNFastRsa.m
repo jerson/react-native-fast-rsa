@@ -222,7 +222,7 @@ RCT_REMAP_METHOD(base64,
 }
 
 RCT_REMAP_METHOD(generate,
-                 generateWith: (NSNumber *)bits
+                 generateWith: (nonnull NSNumber *)bits
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
