@@ -48,6 +48,6 @@ buck-out/
 *.keystore
 
 # Library
-rsa.framework
-!rsa.framework.zip
+Rsa.framework
+!Rsa.framework.zip
 lib/

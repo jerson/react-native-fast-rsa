@@ -2,8 +2,8 @@ android/build/
 android/.gradle
 .project
 .settings
-ios/native/Rsa.framework
-!ios/native/Rsa.framework.zip
+Rsa.framework
+!Rsa.framework.zip
 xcuserdata
 docs/
 src/

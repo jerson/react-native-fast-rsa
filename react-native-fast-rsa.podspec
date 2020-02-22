@@ -15,15 +15,9 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/jerson/react-native-fast-rsa.git", :tag => "v#{s.version}" }
   s.source_files  = 'ios/*.{h,m}'
   s.requires_arc = true
-
   s.dependency "React"
-  s.dependency "FastRsa"
-
-  #s.subspec "FastRsa" do |o|
-  #o.name              = 'FastRsa'
-  #o.platform          = :ios
-  #o.ios.deployment_target = '8.0'
-  #o.ios.vendored_frameworks = 'ios/native/rsa.framework'
-  #end
+  s.preserve_paths = 'ios/Rsa.framework'
+  s.xcconfig = { 'OTHER_LDFLAGS' => '-framework Rsa' }
+  s.vendored_frameworks = 'ios/Rsa.framework'
   
 end

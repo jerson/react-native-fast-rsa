@@ -1,6 +1,11 @@
 
 #import "RNFastRsa.h"
-#import "Rsa/Rsa.h"
+
+#if __has_include(<Rsa/Rsa.h>)
+#import <Rsa/Rsa.h>
+#else
+@import Rsa;
+#endif
 
 @implementation RNFastRsa
 
