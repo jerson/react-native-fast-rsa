@@ -7,7 +7,16 @@
 @import Rsa;
 #endif
 
-@implementation RNFastRsa
+@implementation RNFastRsa{
+    RsaFastRSA *_instance;
+}
+
+- (RsaFastRSA *) instance {
+    if ( _instance == nil ) {
+        _instance = RsaNewFastRSA();
+    }
+    return _instance;
+}
 
 - (dispatch_queue_t)methodQueue
 {
@@ -26,7 +35,7 @@ RCT_REMAP_METHOD(encryptPKCS1v15,
     @try {
     
          NSError *error;
-         NSString * output = [RsaNewFastRSA() encryptPKCS1v15:message pkcs12:pkcs12 passphrase:passphrase error:&error];
+         NSString * output = [[self instance] encryptPKCS1v15:message pkcs12:pkcs12 passphrase:passphrase error:&error];
          
          if(error!=nil){
              reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
@@ -52,7 +61,7 @@ RCT_REMAP_METHOD(encryptOAEP,
     @try {
         
          NSError *error;
-         NSString * output = [RsaNewFastRSA() encryptOAEP:message label:label hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
+         NSString * output = [[self instance] encryptOAEP:message label:label hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
          
          if(error!=nil){
              reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
@@ -76,7 +85,7 @@ RCT_REMAP_METHOD(decryptOAEP,
 {
     @try {
         NSError *error;
-        NSString * output = [RsaNewFastRSA() decryptOAEP:message label:label hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
+        NSString * output = [[self instance] decryptOAEP:message label:label hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
         }else{
@@ -96,7 +105,7 @@ RCT_REMAP_METHOD(decryptPKCS1v15,
 {
     @try {
         NSError *error;
-        NSString * output = [RsaNewFastRSA() decryptPKCS1v15:message pkcs12:pkcs12 passphrase:passphrase error:&error];
+        NSString * output = [[self instance] decryptPKCS1v15:message pkcs12:pkcs12 passphrase:passphrase error:&error];
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
         }else{
@@ -118,7 +127,7 @@ RCT_REMAP_METHOD(signPKCS1v15,
 {
     @try {
         NSError *error;
-        NSString * output = [RsaNewFastRSA() signPKCS1v15:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
+        NSString * output = [[self instance] signPKCS1v15:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
         
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
@@ -142,7 +151,7 @@ RCT_REMAP_METHOD(signPSS,
 {
     @try {
         NSError *error;
-        NSString * output = [RsaNewFastRSA() signPSS:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
+        NSString * output = [[self instance] signPSS:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase error:&error];
         
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
@@ -168,7 +177,7 @@ RCT_REMAP_METHOD(verifyPKCS1v15,
     @try {
         NSError *error;
         BOOL ret0_;
-        BOOL output = [RsaNewFastRSA() verifyPKCS1v15:signature message:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase ret0_:&ret0_ error:&error];
+        BOOL output = [[self instance] verifyPKCS1v15:signature message:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase ret0_:&ret0_ error:&error];
         
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
@@ -194,7 +203,7 @@ RCT_REMAP_METHOD(verifyPSS,
     @try {
         NSError *error;
         BOOL ret0_;
-        BOOL output = [RsaNewFastRSA() verifyPSS:signature message:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase ret0_:&ret0_ error:&error];
+        BOOL output = [[self instance] verifyPSS:signature message:message hashName:hashName pkcs12:pkcs12 passphrase:passphrase ret0_:&ret0_ error:&error];
         
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
@@ -217,7 +226,7 @@ RCT_REMAP_METHOD(hash,
 {
     @try {
         NSError *error;
-        NSString * output = [RsaNewFastRSA() hash:message name:name error:&error];
+        NSString * output = [[self instance] hash:message name:name error:&error];
         
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
@@ -238,7 +247,7 @@ RCT_REMAP_METHOD(base64,
 {
     @try {
         NSError *error;
-        NSString * output = [RsaNewFastRSA() base64:message error:&error];
+        NSString * output = [[self instance] base64:message error:&error];
         
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
@@ -259,7 +268,7 @@ RCT_REMAP_METHOD(generate,
 {
     @try {
         NSError *error;
-        RsaKeyPair * output = [RsaNewFastRSA() generate:[bits floatValue] error:&error];
+        RsaKeyPair * output = [[self instance] generate:[bits floatValue] error:&error];
         
         if(error!=nil){
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
