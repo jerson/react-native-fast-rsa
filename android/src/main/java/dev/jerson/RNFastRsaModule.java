@@ -29,115 +29,159 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void decryptOAEP(String message, String label, String hashName, String pkcs12, String passphrase, Promise promise) {
-        try {
-            String result = instance.decryptOAEP(message, label, hashName, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void decryptOAEP(final String message, final String label, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.decryptOAEP(message, label, hashName, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void decryptPKCS1v15(String message, String pkcs12, String passphrase, Promise promise) {
-        try {
-            String result = instance.decryptPKCS1v15(message, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void decryptPKCS1v15(final String message, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.decryptPKCS1v15(message, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void encryptOAEP(String message, String label, String hashName, String pkcs12, String passphrase, Promise promise) {
-        try {
-            String result = instance.encryptOAEP(message, label, hashName, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void encryptOAEP(final String message, final String label, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.encryptOAEP(message, label, hashName, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void encryptPKCS1v15(String message, String pkcs12, String passphrase, Promise promise) {
-        try {
-            String result = instance.encryptPKCS1v15(message, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void encryptPKCS1v15(final String message, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.encryptPKCS1v15(message, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void signPSS(String message, String hashName, String pkcs12, String passphrase, Promise promise) {
-        try {
-            String result = instance.signPSS(message, hashName, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void signPSS(final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.signPSS(message, hashName, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void signPKCS1v15(String message, String hashName, String pkcs12, String passphrase, Promise promise) {
-        try {
-            String result = instance.signPKCS1v15(message, hashName, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void signPKCS1v15(final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.signPKCS1v15(message, hashName, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void verifyPSS(String signature, String message, String hashName, String pkcs12, String passphrase, Promise promise) {
-        try {
-            Boolean result = instance.verifyPSS(signature, message, hashName, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void verifyPSS(final String signature, final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Boolean result = instance.verifyPSS(signature, message, hashName, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void verifyPKCS1v15(String signature, String message, String hashName, String pkcs12, String passphrase, Promise promise) {
-        try {
-            Boolean result = instance.verifyPKCS1v15(signature, message, hashName, pkcs12, passphrase);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void verifyPKCS1v15(final String signature, final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Boolean result = instance.verifyPKCS1v15(signature, message, hashName, pkcs12, passphrase);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void hash(String message, String name, Promise promise) {
-        try {
-            String result = instance.hash(message, name);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void hash(final String message, final String name, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.hash(message, name);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void base64(String message, Promise promise) {
-        try {
-            String result = instance.base64(message);
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void base64(final String message, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.base64(message);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
-    public void generate(Integer bits, Promise promise) {
-        try {
-            KeyPair keyPair = instance.generate(bits);
-            WritableMap result = Arguments.createMap();
-            result.putString("publicKey", keyPair.getPublicKey());
-            result.putString("privateKey", keyPair.getPrivateKey());
-            promise.resolve(result);
-        } catch (Exception e) {
-            promise.reject(e);
-        }
+    public void generate(final Integer bits, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    KeyPair keyPair = instance.generate(bits);
+                    WritableMap result = Arguments.createMap();
+                    result.putString("publicKey", keyPair.getPublicKey());
+                    result.putString("privateKey", keyPair.getPrivateKey());
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 }
