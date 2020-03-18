@@ -25,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNFastRsa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNFastRsa.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		84CB4F5122D5463B00A87746 /* Rsa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rsa.framework; path = native/Rsa.framework; sourceTree = "<group>"; };
+		84CB4F5122D5463B00A87746 /* Rsa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rsa.framework; path = Rsa.framework; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNFastRsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNFastRsa.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNFastRsa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFastRsa.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
