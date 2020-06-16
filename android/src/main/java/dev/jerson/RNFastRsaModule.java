@@ -29,11 +29,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void decryptOAEP(final String message, final String label, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+    public void decryptOAEP(final String message, final String label, final String hashName, final String privateKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String result = instance.decryptOAEP(message, label, hashName, pkcs12, passphrase);
+                    String result = instance.decryptOAEP(message, label, hashName, privateKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
@@ -43,11 +43,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void decryptPKCS1v15(final String message, final String pkcs12, final String passphrase, final Promise promise) {
+    public void decryptPKCS1v15(final String message, final String privateKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String result = instance.decryptPKCS1v15(message, pkcs12, passphrase);
+                    String result = instance.decryptPKCS1v15(message, privateKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
@@ -57,11 +57,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void encryptOAEP(final String message, final String label, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+    public void encryptOAEP(final String message, final String label, final String hashName, final String publicKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String result = instance.encryptOAEP(message, label, hashName, pkcs12, passphrase);
+                    String result = instance.encryptOAEP(message, label, hashName, publicKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
@@ -71,11 +71,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void encryptPKCS1v15(final String message, final String pkcs12, final String passphrase, final Promise promise) {
+    public void encryptPKCS1v15(final String message, final String publicKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String result = instance.encryptPKCS1v15(message, pkcs12, passphrase);
+                    String result = instance.encryptPKCS1v15(message, publicKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
@@ -85,11 +85,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void signPSS(final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+    public void signPSS(final String message, final String hashName, final String saltLengthName, final String privateKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String result = instance.signPSS(message, hashName, pkcs12, passphrase);
+                    String result = instance.signPSS(message, hashName, saltLengthName, privateKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
@@ -99,11 +99,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void signPKCS1v15(final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+    public void signPKCS1v15(final String message, final String hashName, final String privateKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    String result = instance.signPKCS1v15(message, hashName, pkcs12, passphrase);
+                    String result = instance.signPKCS1v15(message, hashName, privateKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
@@ -113,11 +113,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void verifyPSS(final String signature, final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+    public void verifyPSS(final String signature, final String message, final String hashName, final String saltLengthName, final String publicKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Boolean result = instance.verifyPSS(signature, message, hashName, pkcs12, passphrase);
+                    Boolean result = instance.verifyPSS(signature, message, hashName, saltLengthName, publicKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
@@ -127,11 +127,11 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void verifyPKCS1v15(final String signature, final String message, final String hashName, final String pkcs12, final String passphrase, final Promise promise) {
+    public void verifyPKCS1v15(final String signature, final String message, final String hashName, final String publicKey, final Promise promise) {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Boolean result = instance.verifyPKCS1v15(signature, message, hashName, pkcs12, passphrase);
+                    Boolean result = instance.verifyPKCS1v15(signature, message, hashName, publicKey);
                     promise.resolve(result);
                 } catch (Exception e) {
                     promise.reject(e);
