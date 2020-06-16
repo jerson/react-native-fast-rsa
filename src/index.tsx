@@ -9,63 +9,60 @@ export interface KeyPair {
 
 export type RSAHash  = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512' 
 export type RSABits  = 512 | 1024 | 2048 | 4096
+export type RSASaltLength  = 'auto' | 'equalsHash' 
 
 export default class RSA {
   static decryptOAEP(
     message: string,
     label: string,
     hashName: RSAHash,
-    pkcs12: string,
-    passphrase: string
+    privateKey: string,
   ): Promise<string> {
-    return RNFastRsa.decryptOAEP(message, label,hashName,pkcs12, passphrase);
+    return RNFastRsa.decryptOAEP(message, label,hashName,privateKey);
   }
   static decryptPKCS1v15(
     message: string,
-    pkcs12: string,
-    passphrase: string
+    privateKey: string,
   ): Promise<string> {
-    return RNFastRsa.decryptPKCS1v15(message, pkcs12, passphrase);
+    return RNFastRsa.decryptPKCS1v15(message, privateKey);
   }
-  static encryptOAEP(message: string,label: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string> {
-    return RNFastRsa.encryptOAEP(message,label,hashName, pkcs12, passphrase);
+  static encryptOAEP(message: string,label: string, hashName: RSAHash, publicKey: string): Promise<string> {
+    return RNFastRsa.encryptOAEP(message,label,hashName, publicKey);
   }
-  static encryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string> {
-    return RNFastRsa.encryptPKCS1v15(message, pkcs12, passphrase);
+  static encryptPKCS1v15(message: string, publicKey: string): Promise<string> {
+    return RNFastRsa.encryptPKCS1v15(message, publicKey);
   }
   static signPSS(
     message: string,
     hashName: RSAHash,
-    pkcs12: string,
-    passphrase: string
+    saltLengthName: RSASaltLength,
+    privateKey: string
   ): Promise<string> {
-    return RNFastRsa.signPSS(message, hashName, pkcs12, passphrase);
+    return RNFastRsa.signPSS(message, hashName, saltLengthName, privateKey);
   }
   static signPKCS1v15(
     message: string,
     hashName: RSAHash,
-    pkcs12: string,
-    passphrase: string
+    privateKey: string,
   ): Promise<string> {
-    return RNFastRsa.signPKCS1v15(message, hashName, pkcs12, passphrase);
+    return RNFastRsa.signPKCS1v15(message, hashName, privateKey);
   }
   static verifyPSS(
     signature: string,
     message: string,
     hashName: RSAHash,
-    pkcs12: string,
-    passphrase: string
+    saltLengthName: RSASaltLength,
+    publicKey: string
   ): Promise<boolean> {
-    return RNFastRsa.verifyPSS(signature, message, hashName, pkcs12, passphrase);
+    return RNFastRsa.verifyPSS(signature, message, hashName, saltLengthName, publicKey);
   }
   static verifyPKCS1v15(
     signature: string,
     message: string,
     hashName: RSAHash,
-    pkcs12: string,
-    passphrase: string
+    publicKey: string,
   ): Promise<boolean> {
-    return RNFastRsa.verifyPKCS1v15(signature, message, hashName, pkcs12, passphrase);
+    return RNFastRsa.verifyPKCS1v15(signature, message, hashName, publicKey);
   }
 
   static hash(
