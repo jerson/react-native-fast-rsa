@@ -44,18 +44,20 @@ interface KeyPair {
 
 type RSAHash = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
 type RSABits = 512 | 1024 | 2048 | 4096;
+type RSASaltLength  = 'auto' | 'equalsHash' 
+
 class RSA {
-    static decryptOAEP(message: string, label: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
-    static decryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string>;
-    static encryptOAEP(message: string, label: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
-    static encryptPKCS1v15(message: string, pkcs12: string, passphrase: string): Promise<string>;
-    static signPSS(message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
-    static signPKCS1v15(message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<string>;
-    static verifyPSS(signature: string, message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<boolean>;
-    static verifyPKCS1v15(signature: string, message: string, hashName: RSAHash, pkcs12: string, passphrase: string): Promise<boolean>;
-    static hash(message: string, name: RSAHash): Promise<string>;
-    static base64(message: string): Promise<string>;
-    static generate(bits: RSABits): Promise<KeyPair>;
+  static decryptOAEP(message: string, label: string, hashName: RSAHash, privateKey: string): Promise<string>
+  static decryptPKCS1v15(message: string, privateKey: string,): Promise<string>
+  static encryptOAEP(message: string,label: string, hashName: RSAHash, publicKey: string): Promise<string>
+  static encryptPKCS1v15(message: string, publicKey: string): Promise<string>
+  static signPSS(message: string, hashName: RSAHash, saltLengthName: RSASaltLength, privateKey: string): Promise<string>
+  static signPKCS1v15(message: string, hashName: RSAHash, privateKey: string): Promise<string>
+  static verifyPSS(signature: string, message: string, hashName: RSAHash, saltLengthName: RSASaltLength, publicKey: string): Promise<boolean>
+  static verifyPKCS1v15(signature: string, message: string, hashName: RSAHash, publicKey: string): Promise<boolean>
+  static hash(message: string, name: RSAHash): Promise<string>
+  static base64(message: string): Promise<string>
+  static generate(bits: RSABits): Promise<KeyPair>
 }
 
 ```
