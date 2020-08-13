@@ -25,6 +25,292 @@
 
 RCT_EXPORT_MODULE()
 
+
+RCT_REMAP_METHOD(convertJWKToPrivateKey,
+                 convertJWKToPrivateKeyWith: (NSString *)data
+                 keyId: (NSString *)keyId
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertJWKToPrivateKey:data keyID:keyId error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+RCT_REMAP_METHOD(convertJWKToPublicKey,
+                 convertJWKToPublicKeyWith: (NSString *)data
+                 keyId: (NSString *)keyId
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertJWKToPublicKey:data keyID:keyId error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+}
+
+RCT_REMAP_METHOD(convertKeyPairToPKCS12,
+                 convertKeyPairToPKCS12With: (NSString *)privateKey
+                 certificate: (NSString *)certificate
+                 password: (NSString *)password
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertKeyPairToPKCS12:privateKey certificate:certificate password:password  error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+RCT_REMAP_METHOD(convertPKCS12ToKeyPair,
+                 convertPKCS12ToKeyPairWith: (NSString *)pkcs12
+                 password: (NSString *)password
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        RsaPKCS12KeyPair * output = [[self instance] convertPKCS12ToKeyPair:pkcs12 password:password  error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(@{
+                @"publicKey":output.publicKey,
+                @"privateKey":output.privateKey,
+                @"certificate":output.certificate,
+                    });
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+RCT_REMAP_METHOD(convertPrivateKeyToPKCS8,
+                 convertPrivateKeyToPKCS8With: (NSString *)privateKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertPrivateKeyToPKCS8:privateKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+
+RCT_REMAP_METHOD(convertPrivateKeyToPKCS1,
+                 convertPrivateKeyToPKCS1With: (NSString *)privateKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertPrivateKeyToPKCS1:privateKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+RCT_REMAP_METHOD(convertPrivateKeyToJWK,
+                 convertPrivateKeyToJWKWith: (NSString *)privateKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertPrivateKeyToJWK:privateKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+RCT_REMAP_METHOD(convertPrivateKeyToPublicKey,
+                 convertPrivateKeyToPublicKeyWith: (NSString *)privateKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertPrivateKeyToPublicKey:privateKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+RCT_REMAP_METHOD(convertPublicKeyToPKIX,
+                 convertPublicKeyToPKIXWith: (NSString *)publicKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertPublicKeyToPKIX:publicKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+}
+
+RCT_REMAP_METHOD(convertPublicKeyToPKCS1,
+                 convertPublicKeyToPKCS1With: (NSString *)publicKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertPublicKeyToPKCS1:publicKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+}
+
+RCT_REMAP_METHOD(convertPublicKeyToJWK,
+                 convertPublicKeyToJWKWith: (NSString *)publicKey
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] convertPublicKeyToJWK:publicKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+
+RCT_REMAP_METHOD(decryptPrivateKey,
+                 decryptPrivateKeyWith: (NSString *)privateKeyEncrypted
+                 password: (NSString *)password
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] decryptPrivateKey:privateKeyEncrypted password:password error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+RCT_REMAP_METHOD(encryptPrivateKey,
+                 encryptPrivateKeyWith: (NSString *)privateKey
+                 password: (NSString *)password
+                 cipherName: (NSString *)cipherName
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSError *error;
+        NSString * output = [[self instance] encryptPrivateKey:privateKey password:password cipherName:cipherName error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
+    }
+    @catch (NSException * e) {
+        reject(@"exception", e.reason, nil);
+    }
+    
+}
+
+
 RCT_REMAP_METHOD(encryptPKCS1v15,
                  encryptPKCS1v15With: (NSString *)message
                  publicKey: (NSString *)publicKey
@@ -32,15 +318,15 @@ RCT_REMAP_METHOD(encryptPKCS1v15,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     @try {
-    
-         NSError *error;
-         NSString * output = [[self instance] encryptPKCS1v15:message publicKey:publicKey error:&error];
-         
-         if(error!=nil){
-             reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
-         }else{
-             resolve(output);
-         }
+        
+        NSError *error;
+        NSString * output = [[self instance] encryptPKCS1v15:message publicKey:publicKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
     }
     @catch (NSException * e) {
         reject(@"exception", e.reason, nil);
@@ -58,14 +344,14 @@ RCT_REMAP_METHOD(encryptOAEP,
 {
     @try {
         
-         NSError *error;
-         NSString * output = [[self instance] encryptOAEP:message label:label hashName:hashName publicKey:publicKey error:&error];
-         
-         if(error!=nil){
-             reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
-         }else{
-             resolve(output);
-         }
+        NSError *error;
+        NSString * output = [[self instance] encryptOAEP:message label:label hashName:hashName publicKey:publicKey error:&error];
+        
+        if(error!=nil){
+            reject([NSString stringWithFormat:@"%ld",[error code]], [error description],error);
+        }else{
+            resolve(output);
+        }
     }
     @catch (NSException * e) {
         reject(@"exception", e.reason, nil);
@@ -252,7 +538,7 @@ RCT_REMAP_METHOD(base64,
     @catch (NSException * e) {
         reject(@"exception", e.reason, nil);
     }
-
+    
 }
 
 RCT_REMAP_METHOD(generate,
@@ -268,8 +554,8 @@ RCT_REMAP_METHOD(generate,
             reject([NSString stringWithFormat:@"%ld",(long)[error code]], [error description],error);
         }else{
             resolve(@{
-                      @"publicKey":output.publicKey,
-                      @"privateKey":output.privateKey,
+                @"publicKey":output.publicKey,
+                @"privateKey":output.privateKey,
                     });
         }
     }
