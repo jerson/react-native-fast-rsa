@@ -47,16 +47,39 @@ type RSABits = 512 | 1024 | 2048 | 4096;
 type RSASaltLength  = 'auto' | 'equalsHash' 
 
 class RSA {
+  static convertJWKToPrivateKey(data: any, keyId: string): Promise<string>
+  static convertJWKToPublicKey(data: any, keyId: string): Promise<string>
+
+  static convertKeyPairToPKCS12(privateKey: string, certificate: string, password: string): Promise<string>
+  static convertPKCS12ToKeyPair(pkcs12: string, password: string,): Promise<PCKS12KeyPair>
+
+  static convertPrivateKeyToPKCS8(privateKey: string,): Promise<string>
+  static convertPrivateKeyToPKCS1(privateKey: string): Promise<string>
+  static async convertPrivateKeyToJWK(privateKey: string): Promise<any>
+  static convertPrivateKeyToPublicKey(privateKey: string): Promise<string>
+  
+  static convertPublicKeyToPKIX(publicKey: string): Promise<string>
+  static convertPublicKeyToPKCS1(publicKey: string): Promise<string>
+  static async convertPublicKeyToJWK(publicKey: string): Promise<any>
+
+  static decryptPrivateKey(privateKeyEncrypted: string, password: string,): Promise<string>
+  static encryptPrivateKey(privateKey: string, password: string, cipherName: RSAPEMCipher,): Promise<string>
+
   static decryptOAEP(message: string, label: string, hashName: RSAHash, privateKey: string): Promise<string>
   static decryptPKCS1v15(message: string, privateKey: string,): Promise<string>
+
   static encryptOAEP(message: string,label: string, hashName: RSAHash, publicKey: string): Promise<string>
   static encryptPKCS1v15(message: string, publicKey: string): Promise<string>
+
   static signPSS(message: string, hashName: RSAHash, saltLengthName: RSASaltLength, privateKey: string): Promise<string>
   static signPKCS1v15(message: string, hashName: RSAHash, privateKey: string): Promise<string>
+
   static verifyPSS(signature: string, message: string, hashName: RSAHash, saltLengthName: RSASaltLength, publicKey: string): Promise<boolean>
   static verifyPKCS1v15(signature: string, message: string, hashName: RSAHash, publicKey: string): Promise<boolean>
+
   static hash(message: string, name: RSAHash): Promise<string>
   static base64(message: string): Promise<string>
+
   static generate(bits: RSABits): Promise<KeyPair>
 }
 
