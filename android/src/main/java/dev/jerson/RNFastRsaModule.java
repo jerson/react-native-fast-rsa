@@ -9,6 +9,7 @@ import com.facebook.react.bridge.WritableMap;
 
 import rsa.FastRSA;
 import rsa.KeyPair;
+import rsa.PKCS12KeyPair;
 import rsa.Rsa;
 
 public class RNFastRsaModule extends ReactContextBaseJavaModule {
@@ -26,6 +27,192 @@ public class RNFastRsaModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return "RNFastRsa";
+    }
+
+    @ReactMethod
+    private void convertJWKToPrivateKey(final String data, final String keyId, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertJWKToPrivateKey(data, keyId);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertJWKToPublicKey(final String data, final String keyId, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertJWKToPublicKey(data, keyId);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertKeyPairToPKCS12(final String privateKey, final String certificate, final String password, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertKeyPairToPKCS12(privateKey, certificate, password);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPKCS12ToKeyPair(final String pkcs12, final String password, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    PKCS12KeyPair keyPair = instance.convertPKCS12ToKeyPair(pkcs12, password);
+                    WritableMap result = Arguments.createMap();
+                    result.putString("privateKey", keyPair.getPrivateKey());
+                    result.putString("publicKey", keyPair.getPublicKey());
+                    result.putString("certificate", keyPair.getCertificate());
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPrivateKeyToPKCS8(final String privateKey, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertPrivateKeyToPKCS8(privateKey);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPrivateKeyToPKCS1(final String privateKey, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertPrivateKeyToPKCS1(privateKey);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPrivateKeyToJWK(final String privateKey, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertPrivateKeyToJWK(privateKey);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPrivateKeyToPublicKey(final String privateKey, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertPrivateKeyToPublicKey(privateKey);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPublicKeyToPKIX(final String publicKey, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertPublicKeyToPKIX(publicKey);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPublicKeyToPKCS1(final String publicKey, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertPublicKeyToPKCS1(publicKey);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void convertPublicKeyToJWK(final String publicKey, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.convertPublicKeyToJWK(publicKey);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void decryptPrivateKey(final String privateKeyEncrypted, final String password, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.decryptPrivateKey(privateKeyEncrypted, password);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
+    }
+
+    @ReactMethod
+    private void encryptPrivateKey(final String privateKey, final String password, final String cipherName, final Promise promise) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String result = instance.encryptPrivateKey(privateKey, password, cipherName);
+                    promise.resolve(result);
+                } catch (Exception e) {
+                    promise.reject(e);
+                }
+            }
+        }).start();
     }
 
     @ReactMethod
