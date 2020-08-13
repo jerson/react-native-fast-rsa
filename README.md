@@ -19,7 +19,7 @@
 
 ### Android
 
-1. Open up `android/app/src/main/java/[...]/MainActivity.java`
+1. Open up `android/app/src/main/java/[...]/MainAplication.java`
 
 - Add `import dev.jerson.RNFastRsaPackage;` to the imports at the top of the file
 - Add `new RNFastRsaPackage()` to the list returned by the `getPackages()` method
