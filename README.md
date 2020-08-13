@@ -45,6 +45,7 @@ interface KeyPair {
 type RSAHash = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
 type RSABits = 512 | 1024 | 2048 | 4096;
 type RSASaltLength  = 'auto' | 'equalsHash' 
+type RSAPEMCipher  = 'des'  | '3des'| 'aes128'| 'aes192'| 'aes256'
 
 class RSA {
   static convertJWKToPrivateKey(data: any, keyId: string): Promise<string>
@@ -57,7 +58,7 @@ class RSA {
   static convertPrivateKeyToPKCS1(privateKey: string): Promise<string>
   static async convertPrivateKeyToJWK(privateKey: string): Promise<any>
   static convertPrivateKeyToPublicKey(privateKey: string): Promise<string>
-  
+
   static convertPublicKeyToPKIX(publicKey: string): Promise<string>
   static convertPublicKeyToPKCS1(publicKey: string): Promise<string>
   static async convertPublicKeyToJWK(publicKey: string): Promise<any>
