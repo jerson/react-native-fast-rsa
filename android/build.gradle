@@ -30,8 +30,8 @@ repositories {
     mavenCentral() 
 }
 dependencies {
-    implementation files('libs/rsa.aar')
-    implementation files('libs/rsa-sources.jar')
+    implementation files('libs/Rsa.aar')
+    implementation files('libs/Rsa-sources.jar')
     implementation 'com.facebook.react:react-native:+'
 }
   
