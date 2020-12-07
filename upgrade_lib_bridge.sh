@@ -59,6 +59,6 @@ echo "All updated"
 
 echo "Compress framework"
 cd ios && \
-   zip -r ${FRAMEWORK}.framework.zip ${FRAMEWORK}.framework && \
+   zip --symlinks -r ${FRAMEWORK}.framework.zip ${FRAMEWORK}.framework && \
    rm -rf ${FRAMEWORK}.framework
 
