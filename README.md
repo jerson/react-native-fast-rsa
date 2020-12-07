@@ -8,6 +8,11 @@
 
 `$ react-native link react-native-fast-rsa`
 
+## Important
+
+   if you are using windows, you may need to enable developer mode or need admin privileges to be able to use the symbolic links,
+   this is because we use .framework for ios, and it contains a dir with symbolic links, maybe we can improve this in the future.
+
 ## Manual installation
 
 ### iOS
