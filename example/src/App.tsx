@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Dimensions,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -100,6 +101,7 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: Colors.white,
+    minHeight: Dimensions.get("screen").height
   },
 });
 
