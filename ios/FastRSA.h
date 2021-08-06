@@ -6,7 +6,7 @@
 
 #endif
 
-@interface FastRsa : NSObject <RCTBridgeModule>
+@interface FastRSA : NSObject <RCTBridgeModule>
 @property (nonatomic, assign) BOOL setBridgeOnMainQueue;
 
 @end
