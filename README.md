@@ -4,53 +4,54 @@
 
 `$ npm install react-native-fast-rsa --save`
 
-## Mostly automatic installation
+## JSI
 
-`$ react-native link react-native-fast-rsa`
 
-## Important
+If you want to use with `JSI` instead of `NativeModules` you need to set
 
-   if you are using windows, you may need to enable developer mode or need admin privileges to be able to use the symbolic links,
-   this is because we use .framework for ios, and it contains a dir with symbolic links, maybe we can improve this in the future.
+```typescript
+import RSA from "react-native-fast-rsa";
 
-## Manual installation
+RSA.useJSI = true;
+```
+if you need to use generate methods it is a good idea to disable it, because for now JSI will block your UI but it is faster compared to NativeModules
 
-### iOS
-
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-fast-rsa` and add `RNFastRsa.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNFastRsa.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Run your project (`Cmd+R`)<
-
-### Android
-
-1. Open up `android/app/src/main/java/[...]/MainAplication.java`
-
-- Add `import dev.jerson.RNFastRsaPackage;` to the imports at the top of the file
-- Add `new RNFastRsaPackage()` to the list returned by the `getPackages()` method
-
-2. Append the following lines to `android/settings.gradle`:
-   ```
-   include ':react-native-fast-rsa'
-   project(':react-native-fast-rsa').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-fast-rsa/android')
-   ```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-   ```
-     implementation project(':react-native-fast-rsa')
-   ```
 
 ## Usage
 
-```javascript
-interface KeyPair {
+```typescript
+
+export interface PCKS12KeyPair {
+  publicKey: string;
+  privateKey: string;
+  certificate: string;
+}
+export interface KeyPair {
   publicKey: string;
   privateKey: string;
 }
 
-type RSAHash = 'md5' | 'sha1' | 'sha224' | 'sha256' | 'sha384' | 'sha512';
-type RSABits = 512 | 1024 | 2048 | 4096;
-type RSASaltLength  = 'auto' | 'equalsHash' 
-type RSAPEMCipher  = 'des'  | '3des'| 'aes128'| 'aes192'| 'aes256'
+export enum Hash {
+  MD5 = 0,
+  SHA1 = 1,
+  SHA224 = 2,
+  SHA256 = 3,
+  SHA384 = 4,
+  SHA512 = 5,
+}
+
+export enum PEMCipher {
+  DES = 0,
+  D3DES = 1,
+  AES128 = 2,
+  AES192 = 3,
+  AES256 = 4,
+}
+
+export enum SaltLength {
+  AUTO = 0,
+  EQUALS_HASH = 1,
+}
 
 class RSA {
   static convertJWKToPrivateKey(data: any, keyId: string): Promise<string>
@@ -61,48 +62,46 @@ class RSA {
 
   static convertPrivateKeyToPKCS8(privateKey: string,): Promise<string>
   static convertPrivateKeyToPKCS1(privateKey: string): Promise<string>
-  static async convertPrivateKeyToJWK(privateKey: string): Promise<any>
+  static convertPrivateKeyToJWK(privateKey: string): Promise<any>
   static convertPrivateKeyToPublicKey(privateKey: string): Promise<string>
 
   static convertPublicKeyToPKIX(publicKey: string): Promise<string>
   static convertPublicKeyToPKCS1(publicKey: string): Promise<string>
-  static async convertPublicKeyToJWK(publicKey: string): Promise<any>
+  static convertPublicKeyToJWK(publicKey: string): Promise<any>
 
   static decryptPrivateKey(privateKeyEncrypted: string, password: string,): Promise<string>
-  static encryptPrivateKey(privateKey: string, password: string, cipherName: RSAPEMCipher,): Promise<string>
+  static encryptPrivateKey(privateKey: string, password: string, cipherName: Cipher): Promise<string>
 
-  static decryptOAEP(message: string, label: string, hashName: RSAHash, privateKey: string): Promise<string>
+  static decryptOAEP(message: string, label: string, hashName: Hash, privateKey: string): Promise<string>
   static decryptPKCS1v15(message: string, privateKey: string,): Promise<string>
 
-  static encryptOAEP(message: string,label: string, hashName: RSAHash, publicKey: string): Promise<string>
+  static encryptOAEP(message: string,label: string, hashName: Hash, publicKey: string): Promise<string>
   static encryptPKCS1v15(message: string, publicKey: string): Promise<string>
 
-  static signPSS(message: string, hashName: RSAHash, saltLengthName: RSASaltLength, privateKey: string): Promise<string>
-  static signPKCS1v15(message: string, hashName: RSAHash, privateKey: string): Promise<string>
+  static signPSS(message: string, hashName: Hash, saltLengthName: SaltLength, privateKey: string): Promise<string>
+  static signPKCS1v15(message: string, hashName: Hash, privateKey: string): Promise<string>
 
-  static verifyPSS(signature: string, message: string, hashName: RSAHash, saltLengthName: RSASaltLength, publicKey: string): Promise<boolean>
-  static verifyPKCS1v15(signature: string, message: string, hashName: RSAHash, publicKey: string): Promise<boolean>
+  static verifyPSS(signature: string, message: string, hashName: Hash, saltLengthName: SaltLength, publicKey: string): Promise<boolean>
+  static verifyPKCS1v15(signature: string, message: string, hashName: Hash, publicKey: string): Promise<boolean>
 
-  static hash(message: string, name: RSAHash): Promise<string>
+  static hash(message: string, name: Hash): Promise<string>
   static base64(message: string): Promise<string>
 
-  static generate(bits: RSABits): Promise<KeyPair>
+  static generate(bits: number): Promise<KeyPair>
 }
 
 ```
 
-## Android
-### ProGuard
-
-Add this lines to `android/app/proguard-rules.pro` for proguard support
-
-```proguard
--keep class go.** { *; }
--keep class rsa.** { *; }
-```
-
 ## Native Code
 
-the native library is made in Golang and build with gomobile for faster performance
+the native library is made in Golang for faster performance
 
 https://github.com/jerson/rsa-mobile
+
+## Contributing
+
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+## License
+
+MIT
