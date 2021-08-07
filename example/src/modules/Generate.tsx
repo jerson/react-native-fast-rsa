@@ -17,7 +17,7 @@ export default function ({}: Props) {
     const [keyPair, setKeyPair] = useState({publicKey: '', privateKey: ''});
 
     return <Container  testID={'generate'}>
-        <SectionContainer  testID={'generator'}>
+        <SectionContainer  testID={'container'}>
             <SectionTitle>Generate</SectionTitle>
 
             <Button

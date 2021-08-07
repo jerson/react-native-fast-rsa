@@ -11,9 +11,17 @@ import {
 } from 'react-native';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import EncryptDecrypt from './modules/EncryptDecrypt';
-import SignVerify from './modules/SignVerify';
 import Generate from './modules/Generate';
+import EncryptDecryptPKCS from './modules/EncryptDecryptPKCS';
+import EncryptDecryptOAEP from './modules/EncryptDecryptOAEP';
+import SignVerifyPKCS from './modules/SignVerifyPKCS';
+import SignVerifyPSS from './modules/SignVerifyPSS';
+import Base64 from './modules/Base64';
+import HashExample from './modules/HashExample';
+import ConvertPublic from './modules/ConvertPublic';
+import ConvertPrivate from './modules/ConvertPrivate';
+import ConvertJWT from './modules/ConvertJWT';
+import ConvertKeyPair from './modules/ConvertKeyPair';
 
 const passphrase = 'test';
 const privateKey = `-----BEGIN RSA PRIVATE KEY-----
@@ -70,17 +78,57 @@ const App = () => {
             keyboardShouldPersistTaps={'handled'}
           >
             <View style={styles.body}>
-              <EncryptDecrypt
+              <EncryptDecryptOAEP
                 publicKey={publicKey}
                 privateKey={privateKey}
                 passphrase={passphrase}
               />
-              <SignVerify
+              <EncryptDecryptPKCS
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <SignVerifyPSS
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <SignVerifyPKCS
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <Base64
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <HashExample
                 publicKey={publicKey}
                 privateKey={privateKey}
                 passphrase={passphrase}
               />
               <Generate
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <ConvertPrivate
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <ConvertPublic
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <ConvertJWT
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <ConvertKeyPair
                 publicKey={publicKey}
                 privateKey={privateKey}
                 passphrase={passphrase}

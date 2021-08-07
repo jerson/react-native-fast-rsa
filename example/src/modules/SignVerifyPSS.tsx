@@ -1,7 +1,7 @@
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import {Button, TextInput} from "react-native";
 import React, {useState} from "react";
-import RSA from 'react-native-fast-rsa';
+import RSA, { Hash, SaltLength } from 'react-native-fast-rsa';
 import SectionContainer from "../components/SectionContainer";
 import SectionTitle from "../components/SectionTitle";
 import SectionResult from "../components/SectionResult";
@@ -16,12 +16,12 @@ interface Props {
 export default function ({publicKey, privateKey}: Props) {
 
     const [input, setInput] = useState('');
-    const [encrypted, setEncrypted] = useState('');
-    const [decrypted, setDecrypted] = useState('');
+    const [signed, setSigned] = useState('');
+    const [verified, setVerified] = useState(false);
 
-    return <Container testID={'encrypt-decrypt-pkcsv15'}>
-        <SectionContainer testID={'encrypt'}>
-            <SectionTitle>Encrypt</SectionTitle>
+    return <Container testID={'sign-verify-pss'}>
+        <SectionContainer testID={'sign'}>
+            <SectionTitle>Sign PSS</SectionTitle>
             <TextInput
                 value={input}
                 testID={'message'}
@@ -32,32 +32,41 @@ export default function ({publicKey, privateKey}: Props) {
                 placeholder={"insert message here"}
             />
             <Button
-                title={"Encrypt"}
+                title={"Sign"}
                 testID={'button'}
                 onPress={async () => {
-                    const output = await RSA.encryptPKCS1v15(input, publicKey);
-                    setEncrypted(output);
+                    const output = await RSA.signPSS(
+                        input,
+                        Hash.SHA224,
+                        SaltLength.AUTO,
+                        privateKey
+                    );
+                    setSigned(output);
                 }}
             />
-            {!!encrypted && <SectionResult testID={'result'}>{encrypted}</SectionResult>}
+            {!!signed && <SectionResult testID={'result'}>{signed}</SectionResult>}
         </SectionContainer>
-        {!!encrypted && (
-            <SectionContainer testID={'decrypt'}>
-                <SectionTitle>Decrypt</SectionTitle>
+        {!!signed && (
+            <SectionContainer testID={'verify'}>
+                <SectionTitle>Verify PSS</SectionTitle>
                 <Button
-                    title={"Decrypt"}
+                    title={"Verify"}
                     testID={'button'}
                     onPress={async () => {
-                        const output = await RSA.decryptPKCS1v15(
-                            encrypted,
-                            privateKey
+                        const output = await RSA.verifyPSS(
+                            signed,
+                            input,
+                            Hash.SHA224,
+                            SaltLength.AUTO,
+                            publicKey
                         );
-                        setDecrypted(output);
+
+                        setVerified(output);
                     }}
                 />
-                {!!decrypted && (
+                {typeof verified !== 'undefined' && (
                     <SectionResult testID={'result'}>
-                        {decrypted}
+                        {verified ? 'valid' : 'invalid'}
                     </SectionResult>
                 )}
             </SectionContainer>

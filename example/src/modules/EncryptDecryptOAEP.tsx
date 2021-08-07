@@ -16,12 +16,12 @@ interface Props {
 export default function ({publicKey, privateKey}: Props) {
 
     const [input, setInput] = useState('');
-    const [signed, setSigned] = useState('');
-    const [verified, setVerified] = useState(false);
+    const [encrypted, setEncrypted] = useState('');
+    const [decrypted, setDecrypted] = useState('');
 
-    return <Container testID={'sign-verify-pkcsv15'}>
-        <SectionContainer testID={'sign'}>
-            <SectionTitle>Sign</SectionTitle>
+    return <Container testID={'encrypt-decrypt-oaep'}>
+        <SectionContainer testID={'encrypt'}>
+            <SectionTitle>Encrypt OAEP</SectionTitle>
             <TextInput
                 value={input}
                 testID={'message'}
@@ -32,39 +32,34 @@ export default function ({publicKey, privateKey}: Props) {
                 placeholder={"insert message here"}
             />
             <Button
-                title={"Sign"}
+                title={"Encrypt"}
                 testID={'button'}
                 onPress={async () => {
-                    const output = await RSA.signPKCS1v15(
-                        input,
-                        Hash.SHA224,
-                        privateKey
-                    );
-                    setSigned(output);
+                    const output = await RSA.encryptOAEP(input,"sample",Hash.SHA256, publicKey);
+                    setEncrypted(output);
                 }}
             />
-            {!!signed && <SectionResult testID={'result'}>{signed}</SectionResult>}
+            {!!encrypted && <SectionResult testID={'result'}>{encrypted}</SectionResult>}
         </SectionContainer>
-        {!!signed && (
-            <SectionContainer testID={'verify'}>
-                <SectionTitle>Verify</SectionTitle>
+        {!!encrypted && (
+            <SectionContainer testID={'decrypt'}>
+                <SectionTitle>Decrypt OAEP</SectionTitle>
                 <Button
-                    title={"Verify"}
+                    title={"Decrypt"}
                     testID={'button'}
                     onPress={async () => {
-                        const output = await RSA.verifyPKCS1v15(
-                            signed,
-                            input,
-                            Hash.SHA224,
-                            publicKey
+                        const output = await RSA.decryptOAEP(
+                            encrypted,
+                            "sample",
+                            Hash.SHA256,
+                            privateKey
                         );
-
-                        setVerified(output);
+                        setDecrypted(output);
                     }}
                 />
-                {typeof verified !== 'undefined' && (
+                {!!decrypted && (
                     <SectionResult testID={'result'}>
-                        {verified ? 'valid' : 'invalid'}
+                        {decrypted}
                     </SectionResult>
                 )}
             </SectionContainer>
