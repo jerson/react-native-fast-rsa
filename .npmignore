@@ -1,9 +1,10 @@
-Rsa.framework
-!Rsa.framework.zip
+RSA.framework
+!RSA.framework.zip
 xcuserdata
 .project
 .settings
 !android/src
+.cxx/
 docs/
 src/
 build/

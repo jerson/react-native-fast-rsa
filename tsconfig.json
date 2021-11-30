@@ -1,11 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es2015" ,
-    "module": "es2015",
-    "declaration": true ,
-    "outDir": "./lib",
-    "strict": true ,
+    "baseUrl": "./",
+    "paths": {
+      "react-native-fast-rsa": ["./src/index"]
+    },
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "esModuleInterop": true,
+    "importsNotUsedAsValues": "error",
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "esModuleInterop": true 
+    "strict": true,
+    "target": "esnext"
   }
 }

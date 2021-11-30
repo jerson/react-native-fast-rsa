@@ -2,7 +2,6 @@
 # OSX
 #
 .DS_Store
-__MACOSX
 
 # node.js
 #
@@ -41,6 +40,7 @@ local.properties
 *.iml
 android/.project
 android/.settings
+.cxx/
 
 # BUCK
 buck-out/
@@ -48,6 +48,6 @@ buck-out/
 *.keystore
 
 # Library
-Rsa.framework
-!Rsa.framework.zip
+RSA.framework
+!RSA.framework.zip
 lib/
