@@ -1,5 +1,8 @@
 # react-native-fast-rsa
 
+[![Android](https://github.com/jerson/react-native-fast-rsa/actions/workflows/android.yml/badge.svg)](https://github.com/jerson/react-native-fast-rsa/actions/workflows/android.yml)
+[![iOS](https://github.com/jerson/react-native-fast-rsa/actions/workflows/ios.yml/badge.svg)](https://github.com/jerson/react-native-fast-rsa/actions/workflows/ios.yml)
+
 ## Getting started
 
 `$ npm install react-native-fast-rsa --save`
