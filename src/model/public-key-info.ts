@@ -20,12 +20,12 @@ static getSizePrefixedRootAsPublicKeyInfo(bb:flatbuffers.ByteBuffer, obj?:Public
   return (obj || new PublicKeyInfo()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
 }
 
-bitLen():flatbuffers.Long {
+bitLen():bigint {
   const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : this.bb!.createLong(0, 0);
+  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
 }
 
-mutate_bitLen(value:flatbuffers.Long):boolean {
+mutate_bit_len(value:bigint):boolean {
   const offset = this.bb!.__offset(this.bb_pos, 4);
 
   if (offset === 0) {
@@ -36,12 +36,12 @@ mutate_bitLen(value:flatbuffers.Long):boolean {
   return true;
 }
 
-size():flatbuffers.Long {
+size():bigint {
   const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : this.bb!.createLong(0, 0);
+  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
 }
 
-mutate_size(value:flatbuffers.Long):boolean {
+mutate_size(value:bigint):boolean {
   const offset = this.bb!.__offset(this.bb_pos, 6);
 
   if (offset === 0) {
@@ -52,12 +52,12 @@ mutate_size(value:flatbuffers.Long):boolean {
   return true;
 }
 
-e():flatbuffers.Long {
+e():bigint {
   const offset = this.bb!.__offset(this.bb_pos, 8);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : this.bb!.createLong(0, 0);
+  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
 }
 
-mutate_e(value:flatbuffers.Long):boolean {
+mutate_e(value:bigint):boolean {
   const offset = this.bb!.__offset(this.bb_pos, 8);
 
   if (offset === 0) {
@@ -72,16 +72,16 @@ static startPublicKeyInfo(builder:flatbuffers.Builder) {
   builder.startObject(3);
 }
 
-static addBitLen(builder:flatbuffers.Builder, bitLen:flatbuffers.Long) {
-  builder.addFieldInt64(0, bitLen, builder.createLong(0, 0));
+static addBitLen(builder:flatbuffers.Builder, bitLen:bigint) {
+  builder.addFieldInt64(0, bitLen, BigInt('0'));
 }
 
-static addSize(builder:flatbuffers.Builder, size:flatbuffers.Long) {
-  builder.addFieldInt64(1, size, builder.createLong(0, 0));
+static addSize(builder:flatbuffers.Builder, size:bigint) {
+  builder.addFieldInt64(1, size, BigInt('0'));
 }
 
-static addE(builder:flatbuffers.Builder, e:flatbuffers.Long) {
-  builder.addFieldInt64(2, e, builder.createLong(0, 0));
+static addE(builder:flatbuffers.Builder, e:bigint) {
+  builder.addFieldInt64(2, e, BigInt('0'));
 }
 
 static endPublicKeyInfo(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -89,7 +89,7 @@ static endPublicKeyInfo(builder:flatbuffers.Builder):flatbuffers.Offset {
   return offset;
 }
 
-static createPublicKeyInfo(builder:flatbuffers.Builder, bitLen:flatbuffers.Long, size:flatbuffers.Long, e:flatbuffers.Long):flatbuffers.Offset {
+static createPublicKeyInfo(builder:flatbuffers.Builder, bitLen:bigint, size:bigint, e:bigint):flatbuffers.Offset {
   PublicKeyInfo.startPublicKeyInfo(builder);
   PublicKeyInfo.addBitLen(builder, bitLen);
   PublicKeyInfo.addSize(builder, size);

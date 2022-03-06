@@ -60,7 +60,7 @@ saltLength():SaltLength {
   return offset ? this.bb!.readInt32(this.bb_pos + offset) : SaltLength.AUTO;
 }
 
-mutate_saltLength(value:SaltLength):boolean {
+mutate_salt_length(value:SaltLength):boolean {
   const offset = this.bb!.__offset(this.bb_pos, 8);
 
   if (offset === 0) {

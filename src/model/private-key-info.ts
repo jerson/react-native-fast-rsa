@@ -20,12 +20,12 @@ static getSizePrefixedRootAsPrivateKeyInfo(bb:flatbuffers.ByteBuffer, obj?:Priva
   return (obj || new PrivateKeyInfo()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
 }
 
-bitLen():flatbuffers.Long {
+bitLen():bigint {
   const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : this.bb!.createLong(0, 0);
+  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
 }
 
-mutate_bitLen(value:flatbuffers.Long):boolean {
+mutate_bit_len(value:bigint):boolean {
   const offset = this.bb!.__offset(this.bb_pos, 4);
 
   if (offset === 0) {
@@ -36,12 +36,12 @@ mutate_bitLen(value:flatbuffers.Long):boolean {
   return true;
 }
 
-size():flatbuffers.Long {
+size():bigint {
   const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readInt64(this.bb_pos + offset) : this.bb!.createLong(0, 0);
+  return offset ? this.bb!.readInt64(this.bb_pos + offset) : BigInt('0');
 }
 
-mutate_size(value:flatbuffers.Long):boolean {
+mutate_size(value:bigint):boolean {
   const offset = this.bb!.__offset(this.bb_pos, 6);
 
   if (offset === 0) {
@@ -63,12 +63,12 @@ static startPrivateKeyInfo(builder:flatbuffers.Builder) {
   builder.startObject(3);
 }
 
-static addBitLen(builder:flatbuffers.Builder, bitLen:flatbuffers.Long) {
-  builder.addFieldInt64(0, bitLen, builder.createLong(0, 0));
+static addBitLen(builder:flatbuffers.Builder, bitLen:bigint) {
+  builder.addFieldInt64(0, bitLen, BigInt('0'));
 }
 
-static addSize(builder:flatbuffers.Builder, size:flatbuffers.Long) {
-  builder.addFieldInt64(1, size, builder.createLong(0, 0));
+static addSize(builder:flatbuffers.Builder, size:bigint) {
+  builder.addFieldInt64(1, size, BigInt('0'));
 }
 
 static addError(builder:flatbuffers.Builder, errorOffset:flatbuffers.Offset) {
@@ -80,7 +80,7 @@ static endPrivateKeyInfo(builder:flatbuffers.Builder):flatbuffers.Offset {
   return offset;
 }
 
-static createPrivateKeyInfo(builder:flatbuffers.Builder, bitLen:flatbuffers.Long, size:flatbuffers.Long, errorOffset:flatbuffers.Offset):flatbuffers.Offset {
+static createPrivateKeyInfo(builder:flatbuffers.Builder, bitLen:bigint, size:bigint, errorOffset:flatbuffers.Offset):flatbuffers.Offset {
   PrivateKeyInfo.startPrivateKeyInfo(builder);
   PrivateKeyInfo.addBitLen(builder, bitLen);
   PrivateKeyInfo.addSize(builder, size);
