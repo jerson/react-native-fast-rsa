@@ -22,6 +22,7 @@ import { VerifyPKCS1v15Request } from './model/verify-pkcs1v15request';
 import { HashRequest } from './model/hash-request';
 import { Base64Request } from './model/base64request';
 import { PKCS12KeyPairResponse } from './model/pkcs12key-pair-response';
+import './shim'
 
 const FastRSANativeModules = (NativeModules as NativeModulesDef).FastRSA;
 
