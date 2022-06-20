@@ -1,6 +1,6 @@
 {
   "name": "react-native-fast-rsa",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "library for use RSA",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
