@@ -2,7 +2,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { PEMCipher } from '../model/pemcipher';
+import { PEMCipher } from '../model/p-e-m-cipher';
 
 
 export class EncryptPrivateKeyRequest {

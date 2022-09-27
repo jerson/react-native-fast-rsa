@@ -2,7 +2,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { PKCS12KeyPair } from '../model/pkcs12key-pair';
+import { PKCS12KeyPair } from '../model/p-k-c-s12-key-pair';
 
 
 export class PKCS12KeyPairResponse {
