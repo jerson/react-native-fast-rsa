@@ -3,7 +3,6 @@ package com.reactnativefastrsa
 import android.util.Log
 import com.facebook.react.bridge.*
 
-@ExperimentalUnsignedTypes
 internal class FastRsaModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
@@ -61,7 +60,7 @@ internal class FastRsaModule(reactContext: ReactApplicationContext) :
     }.start()
   }
 
-  @ReactMethod()
+  @ReactMethod
   fun install(promise: Promise) {
     Thread {
       reactApplicationContext.runOnJSQueueThread {
