@@ -131,7 +131,7 @@ namespace fastRSA {
                                 auto rejectFunction = arguments[1].getObject(runtime).asFunction(
                                         runtime);
 
-                                auto response = fastRSA::call(runtime, *nameFuture, *payloadFuture);
+                                auto response = call(runtime, *nameFuture, *payloadFuture);
 
                                 if (response.isString()) {
                                     rejectFunction.call(runtime, response);
