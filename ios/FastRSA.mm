@@ -61,7 +61,7 @@ RCT_REMAP_METHOD(callJSI,callJSI:(nonnull NSString*)name withPayload:(nonnull NS
 
     RCTCxxBridge *cxxBridge = (RCTCxxBridge *)self.bridge;
     if (!cxxBridge.runtime) {
-        reject(@"E001",@"bridge not found",nil);
+        [self call:name withPayload:payload withResolver:resolve withReject:reject];
         return;
     }
     jsi::Runtime * runtime = (jsi::Runtime *)cxxBridge.runtime;
@@ -102,13 +102,15 @@ RCT_REMAP_METHOD(install,installWithResolver:(RCTPromiseResolveBlock)resolve
 {
     RCTCxxBridge *cxxBridge = (RCTCxxBridge *)self.bridge;
     if (!cxxBridge.runtime) {
-        resolve(NO);
+        NSNumber * val = [NSNumber numberWithBool:NO];
+        resolve(val);
         return;
     }
     jsi::Runtime * runtime = (jsi::Runtime *)cxxBridge.runtime;
 
     fastRSA::install(*runtime);
-    resolve(YES);
+    NSNumber * val = [NSNumber numberWithBool:TRUE];
+    resolve(val);
 }
 
 + (BOOL)requiresMainQueueSetup {
