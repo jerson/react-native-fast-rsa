@@ -62,7 +62,7 @@ export default class RSA {
   /**
    * for now we recommend use this in false because is sync
    */
-  static useJSI = true;
+  static useJSI = false;
 
   private static loaded = false;
   private static TAG = '[FastRSA]';
