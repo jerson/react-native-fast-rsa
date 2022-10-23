@@ -51,6 +51,12 @@ RCT_REMAP_METHOD(callJSI,callJSI:(nonnull NSString*)name withPayload:(nonnull NS
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withReject:(RCTPromiseRejectBlock)reject)
 {
+    RCTCxxBridge *cxxBridge = (RCTCxxBridge *)self.bridge;
+    if (!cxxBridge.runtime) {
+        [self call:name withPayload:payload withResolver:resolve withReject:reject];
+        return;
+    }
+
     auto bytesCopy = (Byte*)malloc(payload.count);
     [payload enumerateObjectsUsingBlock:^(NSNumber* number, NSUInteger index, BOOL* stop){
         bytesCopy[index] = number.integerValue;
@@ -58,12 +64,6 @@ RCT_REMAP_METHOD(callJSI,callJSI:(nonnull NSString*)name withPayload:(nonnull NS
     char *cname= strdup([name UTF8String]);
     int size = (int) payload.count;
 
-
-    RCTCxxBridge *cxxBridge = (RCTCxxBridge *)self.bridge;
-    if (!cxxBridge.runtime) {
-        [self call:name withPayload:payload withResolver:resolve withReject:reject];
-        return;
-    }
     jsi::Runtime * runtime = (jsi::Runtime *)cxxBridge.runtime;
 
     auto nameValue = jsi::String::createFromAscii(*runtime, cname);
