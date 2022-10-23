@@ -62,7 +62,10 @@ export default class RSA {
   /**
    * for now we recommend use this in false because is sync
    */
-  static useJSI = false;
+  static useJSI = true;
+
+  private static loaded = false;
+  private static TAG = '[FastRSA]';
 
   static async convertJWKToPrivateKey(
     data: any,
@@ -536,14 +539,32 @@ export default class RSA {
     try {
       let result: BridgeResponse;
       if (this.useJSI) {
-        const buff = bytes.buffer.slice(
-          bytes.byteOffset,
-          bytes.byteLength + bytes.byteOffset
-        );
+        if (!this.loaded) {
+          this.loaded = await FastRSANativeModules.install();
+          console.log(
+            this.TAG,
+            `(${name})`,
+            'JSI install:',
+            this.loaded ? 'Installed' : 'Not Installed'
+          );
+        }
+        if (this.loaded) {
+          const buff = bytes.buffer.slice(
+            bytes.byteOffset,
+            bytes.byteLength + bytes.byteOffset
+          );
 
-        result = await global.FastRSACallPromise(name, buff);
-        if (typeof result === 'string') {
-          throw new Error(result);
+          result = await global.FastRSACallPromise(name, buff);
+          if (typeof result === 'string') {
+            throw new Error(result);
+          }
+        } else {
+          console.log(
+            this.TAG,
+            `(${name})`,
+            'cant use JSI in debug mode, fallback to NativeModules'
+          );
+          result = await FastRSANativeModules.callJSI(name, Array.from(bytes));
         }
       } else {
         result = await FastRSANativeModules.call(name, Array.from(bytes));
@@ -606,8 +627,11 @@ export default class RSA {
     } as KeyPair;
   }
 
-  private static _pkcs12KeyPairResponse(result: flatbuffers.ByteBuffer): PCKS12KeyPair {
-    const response = PKCS12KeyPairResponse.getRootAsPKCS12KeyPairResponse(result);
+  private static _pkcs12KeyPairResponse(
+    result: flatbuffers.ByteBuffer
+  ): PCKS12KeyPair {
+    const response =
+      PKCS12KeyPairResponse.getRootAsPKCS12KeyPairResponse(result);
     const error = response.error();
     if (error) {
       throw new Error('pkcs12KeyPairResponse: ' + error);
