@@ -17,7 +17,7 @@ export default function ({publicKey, privateKey}: Props) {
 
     const [input, setInput] = useState('');
     const [encrypted, setEncrypted] = useState('');
-    const [decrypted, setDecrypted] = useState('');
+    const [decrypted, setDecrypted] = useState(new Uint8Array());
 
     return <Container testID={'encrypt-decrypt-oaep'}>
         <SectionContainer testID={'encrypt'}>
