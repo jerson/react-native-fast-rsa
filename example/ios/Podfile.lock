@@ -272,7 +272,7 @@ PODS:
   - React-jsinspector (0.66.0)
   - React-logger (0.66.0):
     - glog
-  - react-native-fast-rsa (2.3.5):
+  - react-native-fast-rsa (2.3.7):
     - React-Core
   - React-perflogger (0.66.0)
   - React-RCTActionSheet (0.66.0):
@@ -511,7 +511,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 6a05173dc0142abc582bd4edd2d23146b8cc218a
   React-jsinspector: be95ad424ba9f7b817aff22732eb9b1b810a000a
   React-logger: 9a9cd87d4ea681ae929b32ef580638ff1b50fb24
-  react-native-fast-rsa: 2a9ce802e8b7a1882e56259f9d508f49b1f1ec44
+  react-native-fast-rsa: 41403dc0a561ae7a98377447cb34fcee02ff971c
   React-perflogger: 1f554c2b684e2f484f9edcdfdaeedab039fbaca8
   React-RCTActionSheet: 610d5a5d71ab4808734782c8bca6a12ec3563672
   React-RCTAnimation: ec6ed97370ace32724c253f29f0586cafcab8126
@@ -529,4 +529,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 1a589d410452671b6613c819263640f355eea931
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.13.0
