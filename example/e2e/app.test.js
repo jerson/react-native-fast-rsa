@@ -13,9 +13,9 @@ describe('RSA', () => {
   };
 
   beforeAll(async () => {
-    await device.launchApp({ delete: true, newInstance: false });
-    await waitFor(element(list)).toExist().withTimeout(timeout);
+    await device.launchApp();
     await device.reloadReactNative();
+    await waitFor(element(list)).toExist().withTimeout(timeout);
   });
 
   describe('Encrypt and Decrypt OAEP', () => {
