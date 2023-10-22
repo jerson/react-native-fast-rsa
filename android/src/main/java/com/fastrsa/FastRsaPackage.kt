@@ -1,4 +1,4 @@
-package com.reactnativefastrsa
+package com.fastrsa
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

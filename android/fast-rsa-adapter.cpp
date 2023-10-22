@@ -5,7 +5,7 @@
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_reactnativefastrsa_FastRsaModule_initialize(JNIEnv *env, jobject thiz,
+Java_com_fastrsa_FastRsaModule_initialize(JNIEnv *env, jobject thiz,
                                                              jlong jsi_ptr) {
     __android_log_print(ANDROID_LOG_VERBOSE, "react-native-fast-rsa",
                         "Initializing");
@@ -14,12 +14,12 @@ Java_com_reactnativefastrsa_FastRsaModule_initialize(JNIEnv *env, jobject thiz,
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_reactnativefastrsa_FastRsaModule_destruct(JNIEnv *env, jobject thiz) {
+Java_com_fastrsa_FastRsaModule_destruct(JNIEnv *env, jobject thiz) {
     fastRSA::cleanup();
 }
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_reactnativefastrsa_FastRsaModule_callNative(JNIEnv *env, jobject thiz,
+Java_com_fastrsa_FastRsaModule_callNative(JNIEnv *env, jobject thiz,
                                                        jstring name, jbyteArray payload) {
 
     auto nameConstChar = env->GetStringUTFChars(name, nullptr);
@@ -49,7 +49,7 @@ Java_com_reactnativefastrsa_FastRsaModule_callNative(JNIEnv *env, jobject thiz,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_reactnativefastrsa_FastRsaModule_callJSI(JNIEnv *env, jobject thiz, jlong jsi_ptr,
+Java_com_fastrsa_FastRsaModule_callJSI(JNIEnv *env, jobject thiz, jlong jsi_ptr,
                                                           jstring name, jbyteArray payload) {
     auto &runtime = *reinterpret_cast<jsi::Runtime *>(jsi_ptr);
     auto nameConstChar = env->GetStringUTFChars(name, nullptr);

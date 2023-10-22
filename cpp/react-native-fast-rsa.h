@@ -1,3 +1,5 @@
+#ifndef FASTRSA_H
+#define FASTRSA_H
 #include <jsi/jsilib.h>
 #include <jsi/jsi.h>
 
@@ -11,3 +13,5 @@ namespace fastRSA {
     jsi::Value call(jsi::Runtime &runtime, const jsi::String &nameValue,
                              const jsi::Object &payloadObject);
 }
+
+#endif /* FASTRSA_H */

@@ -1,4 +1,4 @@
-package com.reactnativefastrsa
+package com.fastrsa
 
 import android.util.Log
 import com.facebook.react.bridge.*
@@ -83,7 +83,7 @@ internal class FastRsaModule(reactContext: ReactApplicationContext) :
   }
 
   override fun getName(): String {
-    return "FastRSA"
+    return "FastRsa"
   }
 
   override fun onCatalystInstanceDestroy() {

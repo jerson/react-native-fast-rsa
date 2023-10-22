@@ -24,7 +24,7 @@ import { Base64Request } from './model/base64-request';
 import { PKCS12KeyPairResponse } from './model/p-k-c-s12-key-pair-response';
 import './shim';
 
-const FastRSANativeModules = (NativeModules as NativeModulesDef).FastRSA;
+const FastRSANativeModules = (NativeModules as NativeModulesDef).FastRsa;
 
 export interface PCKS12KeyPair {
   publicKey: string;

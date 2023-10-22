@@ -1,9 +1,9 @@
-#import "FastRSA.h"
+#import "FastRsa.h"
 #import <React/RCTBridge+Private.h>
 #import <React/RCTUtils.h>
 #include "librsa_bridge.h"
 
-@implementation FastRSA
+@implementation FastRsa
 
 @synthesize bridge = _bridge;
 @synthesize methodQueue = _methodQueue;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -22,6 +22,7 @@ import ConvertPublic from './modules/ConvertPublic';
 import ConvertPrivate from './modules/ConvertPrivate';
 import ConvertJWT from './modules/ConvertJWT';
 import ConvertKeyPair from './modules/ConvertKeyPair';
+import RSA from 'react-native-fast-rsa';
 
 const passphrase = 'test';
 const privateKey = `-----BEGIN RSA PRIVATE KEY-----
@@ -63,6 +64,11 @@ QIihOzUzOFbPeXXhwgmqsQ7wNn9yeTcNGwIDAQAB
 `;
 
 const App = () => {
+
+  useEffect(()=>{
+    RSA.useJSI=true
+  },[])
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
