@@ -50,7 +50,7 @@ interface FastRSANativeModules {
 }
 
 interface NativeModulesDef {
-  FastRSA: FastRSANativeModules;
+  FastRsa: FastRSANativeModules;
 }
 
 interface Global {
