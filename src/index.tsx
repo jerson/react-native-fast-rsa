@@ -540,7 +540,7 @@ export default class RSA {
       let result: BridgeResponse;
       if (this.useJSI) {
         if (!this.loaded) {
-          this.loaded = await FastRSANativeModules.install();
+          this.loaded = FastRSANativeModules.install();
           console.log(
             this.TAG,
             `(${name})`,

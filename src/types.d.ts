@@ -46,7 +46,7 @@ interface FastRSANativeModules {
   /**
    * this method will install JSI definitions
    */
-  install(): Promise<boolean>;
+  install(): boolean;
 }
 
 interface NativeModulesDef {
