@@ -60,26 +60,22 @@ internal class FastRsaModule(reactContext: ReactApplicationContext) :
     }.start()
   }
 
-  @ReactMethod
-  fun install(promise: Promise) {
-    Thread {
-      reactApplicationContext.runOnJSQueueThread {
-        Log.d(TAG, "installing")
-        try {
-          val contextHolder = this.reactApplicationContext.javaScriptContextHolder!!.get()
-          if (contextHolder.toInt() == 0) {
-            promise.resolve(false)
-            return@runOnJSQueueThread
-          }
-          initialize(contextHolder)
-          Log.i(TAG, "successfully installed")
-          promise.resolve(true)
-        } catch (exception: java.lang.Exception) {
-          Log.e(TAG, "failed to install JSI", exception)
-          promise.reject(exception)
-        }
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  fun install(): Boolean {
+    Log.d(TAG, "installing")
+    try {
+      val contextHolder = this.reactApplicationContext.javaScriptContextHolder!!.get()
+      if (contextHolder.toInt() == 0) {
+        Log.d(TAG, "context not available")
+        return false
       }
-    }.start()
+      initialize(contextHolder)
+      Log.i(TAG, "successfully installed")
+      return true
+    } catch (exception: java.lang.Exception) {
+      Log.e(TAG, "failed to install JSI", exception)
+      return false
+    }
   }
 
   override fun getName(): String {
