@@ -5,23 +5,23 @@ import { GenerateRequest } from './model/generate-request';
 import { KeyPairResponse } from './model/key-pair-response';
 import { StringResponse } from './model/string-response';
 import { ConvertPrivateKeyRequest } from './model/convert-private-key-request';
-import { ConvertJWTRequest } from './model/convert-j-w-t-request';
+import { ConvertJWTRequest } from './model/convert-jwtrequest';
 import { ConvertKeyPairRequest } from './model/convert-key-pair-request';
-import { ConvertPKCS12Request } from './model/convert-p-k-c-s12-request';
+import { ConvertPKCS12Request } from './model/convert-pkcs12-request';
 import { ConvertPublicKeyRequest } from './model/convert-public-key-request';
 import { DecryptPrivateKeyRequest } from './model/decrypt-private-key-request';
 import { EncryptPrivateKeyRequest } from './model/encrypt-private-key-request';
-import { DecryptOAEPRequest } from './model/decrypt-o-a-e-p-request';
-import { DecryptPKCS1v15Request } from './model/decrypt-p-k-c-s1v15-request';
-import { EncryptOAEPRequest } from './model/encrypt-o-a-e-p-request';
-import { EncryptPKCS1v15Request } from './model/encrypt-p-k-c-s1v15-request';
-import { SignPSSRequest } from './model/sign-p-s-s-request';
-import { SignPKCS1v15Request } from './model/sign-p-k-c-s1v15-request';
-import { VerifyPSSRequest } from './model/verify-p-s-s-request';
-import { VerifyPKCS1v15Request } from './model/verify-p-k-c-s1v15-request';
+import { DecryptOAEPRequest } from './model/decrypt-oaeprequest';
+import { DecryptPKCS1v15Request } from './model/decrypt-pkcs1v15-request';
+import { EncryptOAEPRequest } from './model/encrypt-oaeprequest';
+import { EncryptPKCS1v15Request } from './model/encrypt-pkcs1v15-request';
+import { SignPSSRequest } from './model/sign-pssrequest';
+import { SignPKCS1v15Request } from './model/sign-pkcs1v15-request';
+import { VerifyPSSRequest } from './model/verify-pssrequest';
+import { VerifyPKCS1v15Request } from './model/verify-pkcs1v15-request';
 import { HashRequest } from './model/hash-request';
 import { Base64Request } from './model/base64-request';
-import { PKCS12KeyPairResponse } from './model/p-k-c-s12-key-pair-response';
+import { PKCS12KeyPairResponse } from './model/pkcs12-key-pair-response';
 import './shim';
 
 const FastRSANativeModules = (NativeModules as NativeModulesDef).FastRsa;
@@ -564,7 +564,7 @@ export default class RSA {
             `(${name})`,
             'cant use JSI in debug mode, fallback to NativeModules'
           );
-          result = await FastRSANativeModules.callJSI(name, Array.from(bytes));
+          result = await FastRSANativeModules.call(name, Array.from(bytes));
         }
       } else {
         result = await FastRSANativeModules.call(name, Array.from(bytes));

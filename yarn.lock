@@ -7720,10 +7720,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flatbuffers@npm:2.0.6":
-  version: 2.0.6
-  resolution: "flatbuffers@npm:2.0.6"
-  checksum: 88d907d3c9404c2e10c3e45e23a39ed5517b77c036738f88973933f50454a44f49336cbfbc5f3758b3eeb8e644902d84fdedd94c3fd0a54dfda724d4adb1155f
+"flatbuffers@npm:24.3.25":
+  version: 24.3.25
+  resolution: "flatbuffers@npm:24.3.25"
+  checksum: 418d946b9bec0bdc7d1212062f385f08cfc34fed4709fd3dbaf5d7b3e73a33188d964ac65843aaa4bce8a753631d9087cabb53dc94fb43a5da77cbc891eacaf5
   languageName: node
   linkType: hard
 
@@ -13172,7 +13172,7 @@ __metadata:
     eslint: ^8.4.1
     eslint-config-prettier: ^8.5.0
     eslint-plugin-prettier: ^4.0.0
-    flatbuffers: 2.0.6
+    flatbuffers: 24.3.25
     jest: ^28.1.1
     pod-install: ^0.1.0
     prettier: ^2.0.5
@@ -13180,6 +13180,7 @@ __metadata:
     react-native: 0.72.6
     react-native-builder-bob: ^0.20.0
     release-it: ^15.0.0
+    text-encoding: ^0.7.0
     turbo: ^1.10.7
     typescript: ^5.0.2
   peerDependencies:
@@ -14874,6 +14875,13 @@ __metadata:
     glob: ^7.1.4
     minimatch: ^3.0.4
   checksum: 3b34a3d77165a2cb82b34014b3aba93b1c4637a5011807557dc2f3da826c59975a5ccad765721c4648b39817e3472789f9b0fa98fc854c5c1c7a1e632aacdc28
+  languageName: node
+  linkType: hard
+
+"text-encoding@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "text-encoding@npm:0.7.0"
+  checksum: b6109a843fb1b8748b32e1ecd6df74d370f46c13ac136bcb6ca15db70209bb0b8ec1f296ebb4b0dd9961150e205dcc044b89f8cf7657f6faef78c7569a2a81bc
   languageName: node
   linkType: hard
 

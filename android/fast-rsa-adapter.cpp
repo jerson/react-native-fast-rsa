@@ -1,83 +1,96 @@
-#include <jni.h>
-#include "react-native-fast-rsa.h"
 #include <android/log.h>
+#include <jni.h>
 #include <librsa_bridge.h>
 
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_fastrsa_FastRsaModule_initialize(JNIEnv *env, jobject thiz,
-                                                             jlong jsi_ptr) {
-    __android_log_print(ANDROID_LOG_VERBOSE, "react-native-fast-rsa",
-                        "Initializing");
-    fastRSA::install(*reinterpret_cast<facebook::jsi::Runtime *>(jsi_ptr));
+#include "react-native-fast-rsa.h"
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_fastrsa_FastRsaModule_initialize(JNIEnv* env,
+                                          jobject /* thiz */,
+                                          jlong jsContext) {
+  if (jsContext == 0) {
+    __android_log_print(ANDROID_LOG_ERROR, "react-native-fast-rsa", "Failed to initialize: jsContext is null");
+    jclass Exception = env->FindClass("java/lang/IllegalArgumentException");
+    env->ThrowNew(Exception, "JSI context is null");
+    return;
+  }
+
+  __android_log_print(ANDROID_LOG_VERBOSE, "react-native-fast-rsa", "Initializing JSI bindings");
+
+  try {
+    auto* runtime = reinterpret_cast<facebook::jsi::Runtime*>(jsContext);
+
+    fastRSA::install(*runtime);
+
+    __android_log_print(ANDROID_LOG_INFO, "react-native-fast-rsa", "JSI bindings successfully installed");
+  } catch (const std::exception& e) {
+    __android_log_print(ANDROID_LOG_ERROR, "react-native-fast-rsa", "Exception during initialization: %s", e.what());
+    jclass Exception = env->FindClass("java/lang/RuntimeException");
+    env->ThrowNew(Exception, e.what());
+  } catch (...) {
+    __android_log_print(ANDROID_LOG_ERROR, "react-native-fast-rsa", "Unknown error during initialization");
+    jclass Exception = env->FindClass("java/lang/RuntimeException");
+    env->ThrowNew(Exception, "Unknown error occurred during JSI initialization");
+  }
 }
 
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_fastrsa_FastRsaModule_destruct(JNIEnv *env, jobject thiz) {
-    fastRSA::cleanup();
+extern "C" JNIEXPORT void JNICALL
+Java_com_fastrsa_FastRsaModule_destruct(JNIEnv* env, jobject thiz) {
+  fastRSA::cleanup();
 }
-extern "C"
-JNIEXPORT jbyteArray JNICALL
-Java_com_fastrsa_FastRsaModule_callNative(JNIEnv *env, jobject thiz,
-                                                       jstring name, jbyteArray payload) {
 
-    auto nameConstChar = env->GetStringUTFChars(name, nullptr);
-    auto payloadBytes = env->GetByteArrayElements(payload, nullptr);
-    auto size = env->GetArrayLength(payload);
+extern "C" JNIEXPORT jbyteArray JNICALL
+Java_com_fastrsa_FastRsaModule_callNative(JNIEnv* env,
+                                          jobject thiz,
+                                          jstring name,
+                                          jbyteArray payload) {
+  if (name == nullptr || payload == nullptr) {
+    jclass Exception = env->FindClass("java/lang/NullPointerException");
+    env->ThrowNew(Exception, "Input parameters 'name' or 'payload' cannot be null");
+    return nullptr;
+  }
 
-    auto nameChar = const_cast<char *>(nameConstChar);
-    auto response = RSABridgeCall(nameChar, payloadBytes, size);
+  const char* nameConstChar = env->GetStringUTFChars(name, nullptr);
+  if (nameConstChar == nullptr) {
+    jclass Exception = env->FindClass("java/lang/OutOfMemoryError");
+    env->ThrowNew(Exception, "Failed to allocate memory for 'name'");
+    return nullptr;
+  }
 
+  jbyte* payloadBytes = env->GetByteArrayElements(payload, nullptr);
+  if (payloadBytes == nullptr) {
     env->ReleaseStringUTFChars(name, nameConstChar);
-    env->ReleaseByteArrayElements(payload, payloadBytes, 0);
+    jclass Exception = env->FindClass("java/lang/OutOfMemoryError");
+    env->ThrowNew(Exception, "Failed to allocate memory for 'payload'");
+    return nullptr;
+  }
 
-    if (response->error != nullptr) {
-        auto error = response->error;
-        free(response);
-        jclass Exception = env->FindClass("java/lang/Exception");
-        env->ThrowNew(Exception, error);
-        return nullptr;
-    }
+  jsize size = env->GetArrayLength(payload);
+  auto response =
+      RSABridgeCall(const_cast<char*>(nameConstChar), payloadBytes, size);
 
-    auto result = env->NewByteArray(response->size);
-    env->SetByteArrayRegion(result, 0, response->size, (jbyte*) response->message);
+  // Release resources
+  env->ReleaseStringUTFChars(name, nameConstChar);
+  env->ReleaseByteArrayElements(payload, payloadBytes, JNI_ABORT);
+
+  if (response->error != nullptr) {
+    const char* error = response->error;
     free(response);
-    return result;
-}
+    jclass Exception = env->FindClass("java/lang/Exception");
+    env->ThrowNew(Exception, error);
+    return nullptr;
+  }
 
+  jbyteArray result = env->NewByteArray(response->size);
+  if (result == nullptr) {
+    free(response);
+    jclass Exception = env->FindClass("java/lang/OutOfMemoryError");
+    env->ThrowNew(Exception, "Failed to allocate memory for result");
+    return nullptr;
+  }
 
-extern "C"
-JNIEXPORT jbyteArray JNICALL
-Java_com_fastrsa_FastRsaModule_callJSI(JNIEnv *env, jobject thiz, jlong jsi_ptr,
-                                                          jstring name, jbyteArray payload) {
-    auto &runtime = *reinterpret_cast<jsi::Runtime *>(jsi_ptr);
-    auto nameConstChar = env->GetStringUTFChars(name, nullptr);
-    auto payloadBytes = env->GetByteArrayElements(payload, nullptr);
-    auto size = env->GetArrayLength(payload);
+  env->SetByteArrayRegion(result, 0, response->size, reinterpret_cast<jbyte*>(response->message));
+  free(response);
 
-    auto nameValue = jsi::String::createFromAscii(runtime, nameConstChar);
-    env->ReleaseStringUTFChars(name, nameConstChar);
-
-
-    auto arrayBuffer = runtime.global().getPropertyAsFunction(runtime, "ArrayBuffer");
-    jsi::Object o = arrayBuffer.callAsConstructor(runtime, size).getObject(runtime);
-    jsi::ArrayBuffer payloadValue = o.getArrayBuffer(runtime);
-    memcpy(payloadValue.data(runtime), payloadBytes, size);
-    env->ReleaseByteArrayElements(payload, payloadBytes, 0);
-
-    auto response = fastRSA::call(runtime, nameValue, payloadValue);
-
-    if (response.isString()) {
-        auto error = response.asString(runtime);
-        jclass Exception = env->FindClass("java/lang/Exception");
-        env->ThrowNew(Exception, error.utf8(runtime).c_str());
-        return nullptr;
-
-    }
-    auto byteResult = response.asObject(runtime).getArrayBuffer(runtime);
-    auto sizeResult = byteResult.size(runtime);
-    auto result = env->NewByteArray(sizeResult);
-    env->SetByteArrayRegion(result, 0,  sizeResult, (jbyte*) byteResult.data(runtime));
-    return result;
+  return result;
 }

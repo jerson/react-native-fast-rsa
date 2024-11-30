@@ -2,15 +2,15 @@ package com.fastrsa
 
 import android.util.Log
 import com.facebook.react.bridge.*
+import com.facebook.react.turbomodule.core.CallInvokerHolderImpl;
 
 internal class FastRsaModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
   val TAG = "[FastRsaModule]"
 
-  external fun initialize(jsiPtr: Long);
+  external fun initialize(jsContext: Long)
   external fun destruct();
-  external fun callJSI(jsiPtr: Long, name: String, payload: ByteArray): ByteArray;
   external fun callNative(name: String, payload: ByteArray): ByteArray;
 
   companion object {
@@ -18,68 +18,47 @@ internal class FastRsaModule(reactContext: ReactApplicationContext) :
       System.loadLibrary("fast-rsa")
     }
   }
-
-  @ReactMethod
-  fun callJSI(name: String, payload: ReadableArray, promise: Promise) {
-    Thread {
-      reactApplicationContext.runOnJSQueueThread {
-        try {
-          val contextHolder = this.reactApplicationContext.javaScriptContextHolder!!.get()
-          if (contextHolder.toInt() == 0) {
-            call(name, payload, promise)
-            return@runOnJSQueueThread
-          }
-          val bytes = ByteArray(payload.size()) { pos -> payload.getInt(pos).toByte() }
-          val result = callJSI(contextHolder, name, bytes)
-          val resultList = Arguments.createArray()
-          for (i in result.indices) {
-            resultList.pushInt(result[i].toInt())
-          }
-          promise.resolve(resultList)
-        } catch (e: Exception) {
-          promise.reject(e)
-        }
-      }
-    }.start()
+  
+  override fun getName(): String {
+    return "FastRsa"
   }
 
   @ReactMethod
   fun call(name: String, payload: ReadableArray, promise: Promise) {
     Thread {
       try {
-        val bytes = ByteArray(payload.size()) { pos -> payload.getInt(pos).toByte() }
-        val result = callNative(name, bytes)
-        val resultList = Arguments.createArray()
-        for (i in result.indices) {
-          resultList.pushInt(result[i].toInt())
+        val bytes = ByteArray(payload.size()) { index ->
+            payload.getInt(index).toByte()
         }
+        val result = callNative(name, bytes)
+        val resultList = Arguments.createArray().apply {
+            result.forEach { pushInt(it.toInt()) }
+        }
+
         promise.resolve(resultList)
       } catch (e: Exception) {
-        promise.reject(e)
+        promise.reject("CALL_ERROR", "An error occurred during native call", e)
       }
     }.start()
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
   fun install(): Boolean {
-    Log.d(TAG, "installing")
-    try {
-      val contextHolder = this.reactApplicationContext.javaScriptContextHolder!!.get()
-      if (contextHolder.toInt() == 0) {
-        Log.d(TAG, "context not available")
-        return false
+      Log.d(TAG, "Attempting to install JSI bindings...")
+      return try {
+          val contextHolder = reactApplicationContext.javaScriptContextHolder?.get()
+          if (contextHolder == null || contextHolder.toInt() == 0) {
+              Log.w(TAG, "JSI context is not available")
+              false
+          } else {
+              initialize(contextHolder)
+              Log.i(TAG, "JSI bindings successfully installed")
+              true
+          }
+      } catch (e: Exception) {
+          Log.e(TAG, "Failed to install JSI bindings", e)
+          false
       }
-      initialize(contextHolder)
-      Log.i(TAG, "successfully installed")
-      return true
-    } catch (exception: java.lang.Exception) {
-      Log.e(TAG, "failed to install JSI", exception)
-      return false
-    }
-  }
-
-  override fun getName(): String {
-    return "FastRsa"
   }
 
   override fun onCatalystInstanceDestroy() {
