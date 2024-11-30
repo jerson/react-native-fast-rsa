@@ -4,7 +4,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { PrivateKeyInfo } from '../model/private-key-info.ts';
+import { PrivateKeyInfo } from '../model/private-key-info';
 
 
 export class PrivateKeyInfoResponse {

@@ -4,7 +4,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { PKCS12KeyPair } from '../model/pkcs12-key-pair.ts';
+import { PKCS12KeyPair } from '../model/pkcs12-key-pair';
 
 
 export class PKCS12KeyPairResponse {

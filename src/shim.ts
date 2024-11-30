@@ -1,3 +1,7 @@
+if (typeof global.TextEncoder === 'undefined') {
+  require('text-encoding-polyfill');
+}
+
 if (typeof global.BigInt === 'undefined') {
   const bigInt = require('big-integer');
   bigInt.asUintN = function (bits: any, bigint: any) {
@@ -21,8 +25,4 @@ if (typeof global.BigInt === 'undefined') {
       : mod;
   };
   global.BigInt = bigInt;
-}
-
-if (typeof global.TextEncoder === 'undefined') {
-  global.TextEncoder = require('text-encoding').TextEncoder;
 }

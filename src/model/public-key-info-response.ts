@@ -4,7 +4,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { PublicKeyInfo } from '../model/public-key-info.ts';
+import { PublicKeyInfo } from '../model/public-key-info';
 
 
 export class PublicKeyInfoResponse {

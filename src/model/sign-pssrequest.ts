@@ -4,8 +4,8 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { Hash } from '../model/hash.ts';
-import { SaltLength } from '../model/salt-length.ts';
+import { Hash } from '../model/hash';
+import { SaltLength } from '../model/salt-length';
 
 
 export class SignPSSRequest {

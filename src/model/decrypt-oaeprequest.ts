@@ -4,7 +4,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { Hash } from '../model/hash.ts';
+import { Hash } from '../model/hash';
 
 
 export class DecryptOAEPRequest {

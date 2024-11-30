@@ -4,7 +4,7 @@
 
 import * as flatbuffers from 'flatbuffers';
 
-import { KeyPair } from '../model/key-pair.ts';
+import { KeyPair } from '../model/key-pair';
 
 
 export class KeyPairResponse {

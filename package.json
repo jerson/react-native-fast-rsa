@@ -166,7 +166,7 @@
   "dependencies": {
     "big-integer": "^1.6.51",
     "flatbuffers": "24.3.25",
-    "text-encoding": "^0.7.0"
+    "text-encoding-polyfill": "^0.6.7"
   },
   "codegenConfig": {
     "name": "RNFastRsaSpec",
