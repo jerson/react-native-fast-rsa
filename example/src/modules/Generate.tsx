@@ -24,7 +24,7 @@ export default function ({}: Props) {
                 title={"Generate"}
                 testID={'button'}
                 onPress={async () => {
-                    const output = await RSA.generate(2048);
+                    const output = await RSA.generate(4096);
                     setKeyPair(output);
                 }}
             />
