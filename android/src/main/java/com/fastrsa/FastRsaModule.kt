@@ -2,7 +2,6 @@ package com.fastrsa
 
 import android.util.Log
 import com.facebook.react.bridge.*
-import com.facebook.react.turbomodule.core.CallInvokerHolderImpl;
 
 internal class FastRsaModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
