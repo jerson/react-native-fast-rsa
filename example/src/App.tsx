@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -63,11 +63,10 @@ QIihOzUzOFbPeXXhwgmqsQ7wNn9yeTcNGwIDAQAB
 -----END PUBLIC KEY-----
 `;
 
+RSA.useJSI=true
+
 const App = () => {
 
-  useEffect(()=>{
-    RSA.useJSI=true
-  },[])
 
   return (
     <>
