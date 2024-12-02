@@ -1,6 +1,7 @@
 import { NativeModules } from 'react-native';
 import * as flatbuffers from 'flatbuffers';
 import { BoolResponse } from './model/bool-response';
+import { BytesResponse } from './model/bytes-response';
 import { GenerateRequest } from './model/generate-request';
 import { KeyPairResponse } from './model/key-pair-response';
 import { StringResponse } from './model/string-response';
@@ -323,7 +324,7 @@ export default class RSA {
     label: string,
     hashName: Hash,
     privateKey: string
-  ): Promise<string> {
+  ): Promise<Uint8Array> {
     const builder = new flatbuffers.Builder(0);
 
     const messageOffset = builder.createString(message);
@@ -339,7 +340,7 @@ export default class RSA {
     builder.finish(offset);
 
     const result = await this.call('decryptOAEP', builder.asUint8Array());
-    return this._stringResponse(result);
+    return this._bytesResponse(result);
   }
   static async decryptPKCS1v15(
     message: string,
@@ -608,6 +609,15 @@ export default class RSA {
       throw new Error('boolResponse: ' + error);
     }
     return response.output();
+  }
+
+  private static _bytesResponse(result: flatbuffers.ByteBuffer): Uint8Array {
+    const response = BytesResponse.getRootAsBytesResponse(result);
+    const error = response.error();
+    if (error) {
+      throw new Error('bytesResponse: ' + error);
+    }
+    return response.outputArray() || new Uint8Array();
   }
 
   private static _keyPairResponse(result: flatbuffers.ByteBuffer): KeyPair {
