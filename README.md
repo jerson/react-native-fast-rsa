@@ -10,12 +10,12 @@
 ## JSI
 
 
-If you want to use with `JSI` instead of `NativeModules` you need to set
+If you want to use with `NativeModules` instead of `JSI` you need to set
 
 ```typescript
 import RSA from "react-native-fast-rsa";
 
-RSA.useJSI = true;
+RSA.useJSI = false;
 ```
 if you need to use generate methods it is a good idea to disable it, because for now JSI will block your UI but it is faster compared to NativeModules
 
@@ -78,14 +78,26 @@ class RSA {
   static decryptOAEP(message: string, label: string, hashName: Hash, privateKey: string): Promise<string>
   static decryptPKCS1v15(message: string, privateKey: string,): Promise<string>
 
+  static decryptOAEPBytes(message: Uint8Array, label: string, hashName: Hash, privateKey: string): Promise<Uint8Array>
+  static decryptPKCS1v15Bytes(message: Uint8Array, privateKey: string,): Promise<Uint8Array>
+
   static encryptOAEP(message: string,label: string, hashName: Hash, publicKey: string): Promise<string>
   static encryptPKCS1v15(message: string, publicKey: string): Promise<string>
+
+  static encryptOAEPBytes(message: Uint8Array,label: string, hashName: Hash, publicKey: string): Promise<Uint8Array>
+  static encryptPKCS1v15Bytes(message: Uint8Array, publicKey: string): Promise<Uint8Array>
 
   static signPSS(message: string, hashName: Hash, saltLengthName: SaltLength, privateKey: string): Promise<string>
   static signPKCS1v15(message: string, hashName: Hash, privateKey: string): Promise<string>
 
+  static signPSSBytes(message: Uint8Array, hashName: Hash, saltLengthName: SaltLength, privateKey: string): Promise<Uint8Array>
+  static signPKCS1v15Bytes(message: Uint8Array, hashName: Hash, privateKey: string): Promise<Uint8Array>
+
   static verifyPSS(signature: string, message: string, hashName: Hash, saltLengthName: SaltLength, publicKey: string): Promise<boolean>
   static verifyPKCS1v15(signature: string, message: string, hashName: Hash, publicKey: string): Promise<boolean>
+
+  static verifyPSSBytes(signature: Uint8Array, message: Uint8Array, hashName: Hash, saltLengthName: SaltLength, publicKey: string): Promise<boolean>
+  static verifyPKCS1v15Bytes(signature: Uint8Array, message: Uint8Array, hashName: Hash, publicKey: string): Promise<boolean>
 
   static hash(message: string, name: Hash): Promise<string>
   static base64(message: string): Promise<string>

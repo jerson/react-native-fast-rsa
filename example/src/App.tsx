@@ -23,6 +23,7 @@ import ConvertPrivate from './modules/ConvertPrivate';
 import ConvertJWT from './modules/ConvertJWT';
 import ConvertKeyPair from './modules/ConvertKeyPair';
 import RSA from 'react-native-fast-rsa';
+import EncryptDecryptOAEPBytes from './modules/EncryptDecryptOAEPBytes';
 
 const passphrase = 'test';
 const privateKey = `-----BEGIN RSA PRIVATE KEY-----
@@ -84,6 +85,11 @@ const App = () => {
           >
             <View style={styles.body}>
               <EncryptDecryptOAEP
+                publicKey={publicKey}
+                privateKey={privateKey}
+                passphrase={passphrase}
+              />
+              <EncryptDecryptOAEPBytes
                 publicKey={publicKey}
                 privateKey={privateKey}
                 passphrase={passphrase}

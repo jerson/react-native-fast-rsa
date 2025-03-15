@@ -1,6 +1,6 @@
 {
   "name": "react-native-fast-rsa",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "library for use RSA",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -164,9 +164,8 @@
     ]
   },
   "dependencies": {
-    "big-integer": "^1.6.51",
-    "flatbuffers": "24.3.25",
-    "text-encoding-polyfill": "^0.6.7"
+    "big-integer": "^1.6.52",
+    "flatbuffers": "24.3.25"
   },
   "codegenConfig": {
     "name": "RNFastRsaSpec",
