@@ -1,7 +1,8 @@
 import { NativeModules } from 'react-native';
 
 const FastRSANativeModules = (NativeModules as NativeModulesDef).FastRsa;
-const isDebuggingEnabled = typeof atob !== 'undefined';
+const isDebuggingEnabled =
+  typeof atob !== 'undefined' && typeof HermesInternal === 'undefined';
 
 typeof global.FastRSAEncodeText === 'undefined' &&
   !isDebuggingEnabled &&

@@ -34,7 +34,8 @@ import { VerifyPSSBytesRequest } from './model/verify-pssbytes-request';
 import { VerifyPKCS1v15BytesRequest } from './model/verify-pkcs1v15-bytes-request';
 
 const FastRSANativeModules = (NativeModules as NativeModulesDef).FastRsa;
-const isDebuggingEnabled = typeof atob !== 'undefined';
+const isDebuggingEnabled =
+  typeof atob !== 'undefined' && typeof HermesInternal === 'undefined';
 
 typeof global.FastRSACallPromise === 'undefined' &&
   !isDebuggingEnabled &&
